@@ -25,4 +25,10 @@
 			"binding": "LOADER",
 		},
 	],
+	"routes": [
+		{
+			"pattern": "www.mope-blog.com",
+			"custom_domain": true
+		}
+	]
 }
