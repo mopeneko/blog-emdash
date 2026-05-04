@@ -201,7 +201,13 @@
         "data": {
           "title": "K13 R2R",
           "maker": "FiiO",
-          "image": "https://images.microcms-assets.io/assets/e867c752378843c78adb2ba39645e8b7/3980ce8468a74bdb880d7afebf4e4aec/s-1995x1200_v-frms_webp_eb87e018-a942-42eb-8857-6f4360ba8941_small.jpg",
+          "image": {
+            "$media": {
+              "url": "https://images.microcms-assets.io/assets/e867c752378843c78adb2ba39645e8b7/3980ce8468a74bdb880d7afebf4e4aec/s-1995x1200_v-frms_webp_eb87e018-a942-42eb-8857-6f4360ba8941_small.jpg",
+              "alt": "",
+              "filename": "s-1995x1200_v-frms_webp_eb87e018-a942-42eb-8857-6f4360ba8941_small.jpg"
+            }
+          },
           "links": [
             {
               "label": "AliExpressで購入",
@@ -229,7 +235,13 @@
         "data": {
           "title": "V-MODA M-200",
           "maker": "Roland",
-          "image": "https://images.microcms-assets.io/assets/e867c752378843c78adb2ba39645e8b7/dce3660d3747420c871fd097fe766f2c/m-200.jpg.webp",
+          "image": {
+            "$media": {
+              "url": "https://images.microcms-assets.io/assets/e867c752378843c78adb2ba39645e8b7/dce3660d3747420c871fd097fe766f2c/m-200.jpg.webp",
+              "alt": "",
+              "filename": "m-200.jpg.webp"
+            }
+          },
           "links": [
             {
               "label": "eイヤホンで購入",
@@ -249,7 +261,13 @@
         "data": {
           "title": "X-Cannabinoid 15%",
           "maker": "Leafycollective",
-          "image": "https://images.microcms-assets.io/assets/e867c752378843c78adb2ba39645e8b7/bf72a94feba341ae92946172fb91d401/x-can.jpg.webp",
+          "image": {
+            "$media": {
+              "url": "https://images.microcms-assets.io/assets/e867c752378843c78adb2ba39645e8b7/bf72a94feba341ae92946172fb91d401/x-can.jpg.webp",
+              "alt": "",
+              "filename": "x-can.jpg.webp"
+            }
+          },
           "links": [
             {
               "label": "楽天市場で購入",
@@ -870,9 +888,11 @@
               "_key": "k2g",
               "alt": "",
               "asset": {
-                "url": "https://images.microcms-assets.io/assets/e867c752378843c78adb2ba39645e8b7/1c5c221968f04181b645f947306b08d1/image.jpg",
-                "width": 1441,
-                "height": 743
+                "$media": {
+                  "url": "https://images.microcms-assets.io/assets/e867c752378843c78adb2ba39645e8b7/1c5c221968f04181b645f947306b08d1/image.jpg",
+                  "alt": "",
+                  "filename": "image.jpg"
+                }
               }
             },
             {
@@ -968,7 +988,13 @@
               ]
             }
           ],
-          "featured_image": "https://images.microcms-assets.io/assets/e867c752378843c78adb2ba39645e8b7/a56e0d16639f4d9b9a9cd03619085d98/ChatGPT%20Image%202026%E5%B9%B43%E6%9C%8825%E6%97%A5%2022_26_59.jpg"
+          "featured_image": {
+            "$media": {
+              "url": "https://images.microcms-assets.io/assets/e867c752378843c78adb2ba39645e8b7/a56e0d16639f4d9b9a9cd03619085d98/ChatGPT%20Image%202026%E5%B9%B43%E6%9C%8825%E6%97%A5%2022_26_59.jpg",
+              "alt": "",
+              "filename": "ChatGPT Image 2026年3月25日 22_26_59.jpg"
+            }
+          }
         },
         "taxonomies": {
           "tag": [
@@ -1646,9 +1672,11 @@
               "_key": "k5m",
               "alt": "",
               "asset": {
-                "url": "https://images.microcms-assets.io/assets/e867c752378843c78adb2ba39645e8b7/f969e312e74d4f3f89ea5ed082fc0b73/HCTXY2abEAQ2d3_(1).jpg",
-                "width": 2073,
-                "height": 1348
+                "$media": {
+                  "url": "https://images.microcms-assets.io/assets/e867c752378843c78adb2ba39645e8b7/f969e312e74d4f3f89ea5ed082fc0b73/HCTXY2abEAQ2d3_(1).jpg",
+                  "alt": "",
+                  "filename": "HCTXY2abEAQ2d3_(1).jpg"
+                }
               }
             },
             {
@@ -1656,9 +1684,11 @@
               "_key": "k5n",
               "alt": "",
               "asset": {
-                "url": "https://images.microcms-assets.io/assets/e867c752378843c78adb2ba39645e8b7/0c8fe06f6cae448e8511af0a641ea4bd/HCTXb6ybIAAXcs1(1).jpg",
-                "width": 2073,
-                "height": 1348
+                "$media": {
+                  "url": "https://images.microcms-assets.io/assets/e867c752378843c78adb2ba39645e8b7/0c8fe06f6cae448e8511af0a641ea4bd/HCTXb6ybIAAXcs1(1).jpg",
+                  "alt": "",
+                  "filename": "HCTXb6ybIAAXcs1(1).jpg"
+                }
               }
             },
             {
@@ -1740,7 +1770,13 @@
               ]
             }
           ],
-          "featured_image": "https://images.microcms-assets.io/assets/e867c752378843c78adb2ba39645e8b7/bfdc5b63f55d4704a6e11cf784aa02ae/Gemini_Generated_Image_m8p8evm8p8evm8p8.jpg"
+          "featured_image": {
+            "$media": {
+              "url": "https://images.microcms-assets.io/assets/e867c752378843c78adb2ba39645e8b7/bfdc5b63f55d4704a6e11cf784aa02ae/Gemini_Generated_Image_m8p8evm8p8evm8p8.jpg",
+              "alt": "",
+              "filename": "Gemini_Generated_Image_m8p8evm8p8evm8p8.jpg"
+            }
+          }
         },
         "taxonomies": {
           "tag": [
@@ -1852,9 +1888,11 @@
               "_key": "k6e",
               "alt": "",
               "asset": {
-                "url": "https://images.microcms-assets.io/assets/e867c752378843c78adb2ba39645e8b7/8a4661a799354ad4a64281127e86d788/image.png",
-                "width": 225,
-                "height": 166
+                "$media": {
+                  "url": "https://images.microcms-assets.io/assets/e867c752378843c78adb2ba39645e8b7/8a4661a799354ad4a64281127e86d788/image.png",
+                  "alt": "",
+                  "filename": "image.png"
+                }
               }
             },
             {
@@ -1901,9 +1939,11 @@
               "_key": "k6l",
               "alt": "",
               "asset": {
-                "url": "https://images.microcms-assets.io/assets/e867c752378843c78adb2ba39645e8b7/4624c951bdfe4e809a5da548614c9902/Screenshot%202025-12-27%20at%2006-38-49%20%E6%B3%A8%E6%96%87.png",
-                "width": 960,
-                "height": 182
+                "$media": {
+                  "url": "https://images.microcms-assets.io/assets/e867c752378843c78adb2ba39645e8b7/4624c951bdfe4e809a5da548614c9902/Screenshot%202025-12-27%20at%2006-38-49%20%E6%B3%A8%E6%96%87.png",
+                  "alt": "",
+                  "filename": "Screenshot 2025-12-27 at 06-38-49 注文.png"
+                }
               }
             },
             {
@@ -1972,9 +2012,11 @@
               "_key": "k6v",
               "alt": "",
               "asset": {
-                "url": "https://images.microcms-assets.io/assets/e867c752378843c78adb2ba39645e8b7/9880b912b89a4177b67c46f3fff4d139/188641.jpg",
-                "width": 1024,
-                "height": 327
+                "$media": {
+                  "url": "https://images.microcms-assets.io/assets/e867c752378843c78adb2ba39645e8b7/9880b912b89a4177b67c46f3fff4d139/188641.jpg",
+                  "alt": "",
+                  "filename": "188641.jpg"
+                }
               }
             },
             {
@@ -2021,9 +2063,11 @@
               "_key": "k72",
               "alt": "",
               "asset": {
-                "url": "https://images.microcms-assets.io/assets/e867c752378843c78adb2ba39645e8b7/ea191fc5bf51445298c623d4b2f68cb3/image.png",
-                "width": 395,
-                "height": 121
+                "$media": {
+                  "url": "https://images.microcms-assets.io/assets/e867c752378843c78adb2ba39645e8b7/ea191fc5bf51445298c623d4b2f68cb3/image.png",
+                  "alt": "",
+                  "filename": "image.png"
+                }
               }
             },
             {
@@ -2057,9 +2101,11 @@
               "_key": "k77",
               "alt": "",
               "asset": {
-                "url": "https://images.microcms-assets.io/assets/e867c752378843c78adb2ba39645e8b7/56d1c438452043e1ab3fd5e7fa400257/image.png",
-                "width": 226,
-                "height": 127
+                "$media": {
+                  "url": "https://images.microcms-assets.io/assets/e867c752378843c78adb2ba39645e8b7/56d1c438452043e1ab3fd5e7fa400257/image.png",
+                  "alt": "",
+                  "filename": "image.png"
+                }
               }
             },
             {
@@ -2112,9 +2158,11 @@
               "_key": "k7f",
               "alt": "",
               "asset": {
-                "url": "https://images.microcms-assets.io/assets/e867c752378843c78adb2ba39645e8b7/21368f1d21954cb9b3756a2d5fe2b86f/PXL_20251226_212825476(1).jpg",
-                "width": 1360,
-                "height": 1024
+                "$media": {
+                  "url": "https://images.microcms-assets.io/assets/e867c752378843c78adb2ba39645e8b7/21368f1d21954cb9b3756a2d5fe2b86f/PXL_20251226_212825476(1).jpg",
+                  "alt": "",
+                  "filename": "PXL_20251226_212825476(1).jpg"
+                }
               }
             },
             {
@@ -2161,9 +2209,11 @@
               "_key": "k7m",
               "alt": "",
               "asset": {
-                "url": "https://images.microcms-assets.io/assets/e867c752378843c78adb2ba39645e8b7/d2fc1cca6c2c4271bb2de70b9a961a8f/PXL_20251226_221335728(1).jpg",
-                "width": 1360,
-                "height": 1024
+                "$media": {
+                  "url": "https://images.microcms-assets.io/assets/e867c752378843c78adb2ba39645e8b7/d2fc1cca6c2c4271bb2de70b9a961a8f/PXL_20251226_221335728(1).jpg",
+                  "alt": "",
+                  "filename": "PXL_20251226_221335728(1).jpg"
+                }
               }
             },
             {
@@ -2557,7 +2607,13 @@
               ]
             }
           ],
-          "featured_image": "https://images.microcms-assets.io/assets/e867c752378843c78adb2ba39645e8b7/21368f1d21954cb9b3756a2d5fe2b86f/PXL_20251226_212825476(1).jpg",
+          "featured_image": {
+            "$media": {
+              "url": "https://images.microcms-assets.io/assets/e867c752378843c78adb2ba39645e8b7/21368f1d21954cb9b3756a2d5fe2b86f/PXL_20251226_212825476(1).jpg",
+              "alt": "",
+              "filename": "PXL_20251226_212825476(1).jpg"
+            }
+          },
           "product": "$ref:product-xzdppos1v"
         },
         "taxonomies": {
@@ -2795,9 +2851,11 @@
               "_key": "ka7",
               "alt": "",
               "asset": {
-                "url": "https://images.microcms-assets.io/assets/e867c752378843c78adb2ba39645e8b7/ed142a3cbcd147a68538fb1651a40c25/Screenshot_20251028_200215.png",
-                "width": 513,
-                "height": 107
+                "$media": {
+                  "url": "https://images.microcms-assets.io/assets/e867c752378843c78adb2ba39645e8b7/ed142a3cbcd147a68538fb1651a40c25/Screenshot_20251028_200215.png",
+                  "alt": "",
+                  "filename": "Screenshot_20251028_200215.png"
+                }
               }
             },
             {
@@ -2926,13 +2984,21 @@
               "_key": "kaq",
               "alt": "",
               "asset": {
-                "url": "https://images.microcms-assets.io/assets/e867c752378843c78adb2ba39645e8b7/23378f44e5894a30a3469635c1ea36c4/Screenshot_20251028_201115.png",
-                "width": 823,
-                "height": 335
+                "$media": {
+                  "url": "https://images.microcms-assets.io/assets/e867c752378843c78adb2ba39645e8b7/23378f44e5894a30a3469635c1ea36c4/Screenshot_20251028_201115.png",
+                  "alt": "",
+                  "filename": "Screenshot_20251028_201115.png"
+                }
               }
             }
           ],
-          "featured_image": "https://images.microcms-assets.io/assets/e867c752378843c78adb2ba39645e8b7/8b9dec698d334f609e02291b1bfbbe33/Screenshot_20251028_194458.png"
+          "featured_image": {
+            "$media": {
+              "url": "https://images.microcms-assets.io/assets/e867c752378843c78adb2ba39645e8b7/8b9dec698d334f609e02291b1bfbbe33/Screenshot_20251028_194458.png",
+              "alt": "",
+              "filename": "Screenshot_20251028_194458.png"
+            }
+          }
         },
         "taxonomies": {
           "tag": [
@@ -3199,9 +3265,11 @@
               "_key": "kbt",
               "alt": "PXL-20240722-131802873-コピー.jpg.webp",
               "asset": {
-                "url": "https://images.microcms-assets.io/assets/e867c752378843c78adb2ba39645e8b7/41e2eba9ace1421ba0f2b48d0d2e4c3f/PXL-20240722-131802873-%E3%82%B3%E3%83%94%E3%83%BC.jpg.webp",
-                "width": 768,
-                "height": 578
+                "$media": {
+                  "url": "https://images.microcms-assets.io/assets/e867c752378843c78adb2ba39645e8b7/41e2eba9ace1421ba0f2b48d0d2e4c3f/PXL-20240722-131802873-%E3%82%B3%E3%83%94%E3%83%BC.jpg.webp",
+                  "alt": "PXL-20240722-131802873-コピー.jpg.webp",
+                  "filename": "PXL-20240722-131802873-コピー.jpg.webp"
+                }
               }
             },
             {
@@ -3283,7 +3351,13 @@
               ]
             }
           ],
-          "featured_image": "https://images.microcms-assets.io/assets/e867c752378843c78adb2ba39645e8b7/4e50168011884c989f47f4f8f741f098/PXL-20240722-125114776-%E3%82%B3%E3%83%94%E3%83%BC.jpg.webp",
+          "featured_image": {
+            "$media": {
+              "url": "https://images.microcms-assets.io/assets/e867c752378843c78adb2ba39645e8b7/4e50168011884c989f47f4f8f741f098/PXL-20240722-125114776-%E3%82%B3%E3%83%94%E3%83%BC.jpg.webp",
+              "alt": "",
+              "filename": "PXL-20240722-125114776-コピー.jpg.webp"
+            }
+          },
           "product": "$ref:product-vm840m4dne"
         },
         "taxonomies": {
@@ -3331,9 +3405,11 @@
               "_key": "kca",
               "alt": "messageImage_1736099009453.jpg.webp",
               "asset": {
-                "url": "https://images.microcms-assets.io/assets/e867c752378843c78adb2ba39645e8b7/70041d965ee2454c9e14a5198879fcc5/messageImage_1736099009453.jpg.webp",
-                "width": 768,
-                "height": 433
+                "$media": {
+                  "url": "https://images.microcms-assets.io/assets/e867c752378843c78adb2ba39645e8b7/70041d965ee2454c9e14a5198879fcc5/messageImage_1736099009453.jpg.webp",
+                  "alt": "messageImage_1736099009453.jpg.webp",
+                  "filename": "messageImage_1736099009453.jpg.webp"
+                }
               }
             },
             {
@@ -4474,7 +4550,13 @@
               ]
             }
           ],
-          "featured_image": "https://images.microcms-assets.io/assets/e867c752378843c78adb2ba39645e8b7/aaf33f3df6a74b44b401e9e69e513a83/Screenshot2024-07-05at12-19-57%E3%82%82%E3%81%BA(%40lem0n.cc)%E2%80%94Bluesky.png.webp"
+          "featured_image": {
+            "$media": {
+              "url": "https://images.microcms-assets.io/assets/e867c752378843c78adb2ba39645e8b7/aaf33f3df6a74b44b401e9e69e513a83/Screenshot2024-07-05at12-19-57%E3%82%82%E3%81%BA(%40lem0n.cc)%E2%80%94Bluesky.png.webp",
+              "alt": "",
+              "filename": "Screenshot2024-07-05at12-19-57もぺ(@lem0n.cc)—Bluesky.png.webp"
+            }
+          }
         },
         "taxonomies": {
           "tag": [
@@ -4533,9 +4615,11 @@
               "_key": "kgv",
               "alt": "foto_no_exif-2--1-.jpg.webp",
               "asset": {
-                "url": "https://images.microcms-assets.io/assets/e867c752378843c78adb2ba39645e8b7/a0ee2ba6cf404fafaa61e3ee3f2ffc75/foto_no_exif-2--1-.jpg.webp",
-                "width": 768,
-                "height": 578
+                "$media": {
+                  "url": "https://images.microcms-assets.io/assets/e867c752378843c78adb2ba39645e8b7/a0ee2ba6cf404fafaa61e3ee3f2ffc75/foto_no_exif-2--1-.jpg.webp",
+                  "alt": "foto_no_exif-2--1-.jpg.webp",
+                  "filename": "foto_no_exif-2--1-.jpg.webp"
+                }
               }
             },
             {
@@ -4556,9 +4640,11 @@
               "_key": "kgy",
               "alt": "foto_no_exif-1--1.jpg.webp",
               "asset": {
-                "url": "https://images.microcms-assets.io/assets/e867c752378843c78adb2ba39645e8b7/e152ed61ad8c4cf9886602c6d406ae10/foto_no_exif-1--1.jpg.webp",
-                "width": 768,
-                "height": 578
+                "$media": {
+                  "url": "https://images.microcms-assets.io/assets/e867c752378843c78adb2ba39645e8b7/e152ed61ad8c4cf9886602c6d406ae10/foto_no_exif-1--1.jpg.webp",
+                  "alt": "foto_no_exif-1--1.jpg.webp",
+                  "filename": "foto_no_exif-1--1.jpg.webp"
+                }
               }
             },
             {
@@ -4913,7 +4999,13 @@
               ]
             }
           ],
-          "featured_image": "https://images.microcms-assets.io/assets/e867c752378843c78adb2ba39645e8b7/80b939f1398241cab1ef722e91377589/cbg9_thumb.png.webp",
+          "featured_image": {
+            "$media": {
+              "url": "https://images.microcms-assets.io/assets/e867c752378843c78adb2ba39645e8b7/80b939f1398241cab1ef722e91377589/cbg9_thumb.png.webp",
+              "alt": "",
+              "filename": "cbg9_thumb.png.webp"
+            }
+          },
           "product": "$ref:product-ef0cn3fke"
         },
         "taxonomies": {
@@ -5285,7 +5377,13 @@
               ]
             }
           ],
-          "featured_image": "https://images.microcms-assets.io/assets/e867c752378843c78adb2ba39645e8b7/d68f1568cf704d0fa69bec2a2fdcc58a/cline-deepseek-r1-cody.png.webp"
+          "featured_image": {
+            "$media": {
+              "url": "https://images.microcms-assets.io/assets/e867c752378843c78adb2ba39645e8b7/d68f1568cf704d0fa69bec2a2fdcc58a/cline-deepseek-r1-cody.png.webp",
+              "alt": "",
+              "filename": "cline-deepseek-r1-cody.png.webp"
+            }
+          }
         },
         "taxonomies": {
           "tag": [
@@ -5356,7 +5454,13 @@
               ]
             }
           ],
-          "featured_image": "https://images.microcms-assets.io/assets/e867c752378843c78adb2ba39645e8b7/a0b9a87380844e03a99d60fd7d6d4da5/big-data-2103091_1280.png.webp"
+          "featured_image": {
+            "$media": {
+              "url": "https://images.microcms-assets.io/assets/e867c752378843c78adb2ba39645e8b7/a0b9a87380844e03a99d60fd7d6d4da5/big-data-2103091_1280.png.webp",
+              "alt": "",
+              "filename": "big-data-2103091_1280.png.webp"
+            }
+          }
         },
         "taxonomies": {
           "tag": [
@@ -5814,7 +5918,13 @@
               ]
             }
           ],
-          "featured_image": "https://images.microcms-assets.io/assets/e867c752378843c78adb2ba39645e8b7/bf5fd9a150244504862ad0b1ff460e3d/audit-6904474_1280.png.webp"
+          "featured_image": {
+            "$media": {
+              "url": "https://images.microcms-assets.io/assets/e867c752378843c78adb2ba39645e8b7/bf5fd9a150244504862ad0b1ff460e3d/audit-6904474_1280.png.webp",
+              "alt": "",
+              "filename": "audit-6904474_1280.png.webp"
+            }
+          }
         },
         "taxonomies": {
           "tag": [
@@ -6034,9 +6144,11 @@
               "_key": "kmv",
               "alt": "brave_screenshot_www.mope-blog.com.png.webp",
               "asset": {
-                "url": "https://images.microcms-assets.io/assets/e867c752378843c78adb2ba39645e8b7/fdc137c9fe804ddcbdd4221387d60c34/brave_screenshot_www.mope-blog.com.png.webp",
-                "width": 768,
-                "height": 425
+                "$media": {
+                  "url": "https://images.microcms-assets.io/assets/e867c752378843c78adb2ba39645e8b7/fdc137c9fe804ddcbdd4221387d60c34/brave_screenshot_www.mope-blog.com.png.webp",
+                  "alt": "brave_screenshot_www.mope-blog.com.png.webp",
+                  "filename": "brave_screenshot_www.mope-blog.com.png.webp"
+                }
               }
             },
             {
@@ -6083,9 +6195,11 @@
               "_key": "kn2",
               "alt": "GTXTSuFagAMBFUl.jpeg.webp",
               "asset": {
-                "url": "https://images.microcms-assets.io/assets/e867c752378843c78adb2ba39645e8b7/59d67a14ed51412d96bce3c565b824e8/GTXTSuFagAMBFUl.jpeg.webp",
-                "width": 768,
-                "height": 498
+                "$media": {
+                  "url": "https://images.microcms-assets.io/assets/e867c752378843c78adb2ba39645e8b7/59d67a14ed51412d96bce3c565b824e8/GTXTSuFagAMBFUl.jpeg.webp",
+                  "alt": "GTXTSuFagAMBFUl.jpeg.webp",
+                  "filename": "GTXTSuFagAMBFUl.jpeg.webp"
+                }
               }
             },
             {
@@ -6361,7 +6475,13 @@
               ]
             }
           ],
-          "featured_image": "https://images.microcms-assets.io/assets/e867c752378843c78adb2ba39645e8b7/b1574f809aee4f669bc0cead5d67f2bc/ai-generated-8612733_1280.jpg.webp"
+          "featured_image": {
+            "$media": {
+              "url": "https://images.microcms-assets.io/assets/e867c752378843c78adb2ba39645e8b7/b1574f809aee4f669bc0cead5d67f2bc/ai-generated-8612733_1280.jpg.webp",
+              "alt": "",
+              "filename": "ai-generated-8612733_1280.jpg.webp"
+            }
+          }
         },
         "taxonomies": {
           "tag": [
@@ -6799,9 +6919,11 @@
               "_key": "kpu",
               "alt": "スクリーンショット2024-10-28001601.png.webp",
               "asset": {
-                "url": "https://images.microcms-assets.io/assets/e867c752378843c78adb2ba39645e8b7/4fb74e08434441b2912d9e18b0eea315/%E3%82%B9%E3%82%AF%E3%83%AA%E3%83%BC%E3%83%B3%E3%82%B7%E3%83%A7%E3%83%83%E3%83%882024-10-28001601.png.webp",
-                "width": 768,
-                "height": 159
+                "$media": {
+                  "url": "https://images.microcms-assets.io/assets/e867c752378843c78adb2ba39645e8b7/4fb74e08434441b2912d9e18b0eea315/%E3%82%B9%E3%82%AF%E3%83%AA%E3%83%BC%E3%83%B3%E3%82%B7%E3%83%A7%E3%83%83%E3%83%882024-10-28001601.png.webp",
+                  "alt": "スクリーンショット2024-10-28001601.png.webp",
+                  "filename": "スクリーンショット2024-10-28001601.png.webp"
+                }
               }
             },
             {
@@ -6907,9 +7029,11 @@
               "_key": "kq9",
               "alt": "スクリーンショット2024-10-28001644.png.webp",
               "asset": {
-                "url": "https://images.microcms-assets.io/assets/e867c752378843c78adb2ba39645e8b7/4e7dc3ca00c24f6eb742f9ff7afcd106/%E3%82%B9%E3%82%AF%E3%83%AA%E3%83%BC%E3%83%B3%E3%82%B7%E3%83%A7%E3%83%83%E3%83%882024-10-28001644.png.webp",
-                "width": 768,
-                "height": 218
+                "$media": {
+                  "url": "https://images.microcms-assets.io/assets/e867c752378843c78adb2ba39645e8b7/4e7dc3ca00c24f6eb742f9ff7afcd106/%E3%82%B9%E3%82%AF%E3%83%AA%E3%83%BC%E3%83%B3%E3%82%B7%E3%83%A7%E3%83%83%E3%83%882024-10-28001644.png.webp",
+                  "alt": "スクリーンショット2024-10-28001644.png.webp",
+                  "filename": "スクリーンショット2024-10-28001644.png.webp"
+                }
               }
             },
             {
@@ -7103,9 +7227,11 @@
               "_key": "kqz",
               "alt": "image.png.webp",
               "asset": {
-                "url": "https://images.microcms-assets.io/assets/e867c752378843c78adb2ba39645e8b7/6fdfd4edf98e4edd9da35c683afaa05b/image.png.webp",
-                "width": 768,
-                "height": 806
+                "$media": {
+                  "url": "https://images.microcms-assets.io/assets/e867c752378843c78adb2ba39645e8b7/6fdfd4edf98e4edd9da35c683afaa05b/image.png.webp",
+                  "alt": "image.png.webp",
+                  "filename": "image.png.webp"
+                }
               }
             },
             {
@@ -8328,9 +8454,11 @@
               "_key": "kvs",
               "alt": "スクリーンショット2025-03-24200529.png.webp",
               "asset": {
-                "url": "https://images.microcms-assets.io/assets/e867c752378843c78adb2ba39645e8b7/76f5990089aa461d832f6f0c64f0f667/%E3%82%B9%E3%82%AF%E3%83%AA%E3%83%BC%E3%83%B3%E3%82%B7%E3%83%A7%E3%83%83%E3%83%882025-03-24200529.png.webp",
-                "width": 768,
-                "height": 413
+                "$media": {
+                  "url": "https://images.microcms-assets.io/assets/e867c752378843c78adb2ba39645e8b7/76f5990089aa461d832f6f0c64f0f667/%E3%82%B9%E3%82%AF%E3%83%AA%E3%83%BC%E3%83%B3%E3%82%B7%E3%83%A7%E3%83%83%E3%83%882025-03-24200529.png.webp",
+                  "alt": "スクリーンショット2025-03-24200529.png.webp",
+                  "filename": "スクリーンショット2025-03-24200529.png.webp"
+                }
               }
             },
             {
