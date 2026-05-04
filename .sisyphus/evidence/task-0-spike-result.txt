@@ -1,0 +1,145 @@
+# Task 0 Spike Result: $media Support in Portable Text Image Blocks
+
+## Verdict: NO
+
+EmDash does **NOT** natively support `$media` objects inside Portable Text `_type: "image"` blocks in a way that produces compatible, renderable data structures.
+
+---
+
+## Evidence Summary
+
+### 1. Seed Validation: PASSES (but irrelevant)
+- `npx emdash seed .sisyphus/evidence/test-pt-media-seed.json --validate`
+- Output: "Seed file is valid" / "Validation complete"
+- The validator (`src/seed/validate.ts`) does NOT inspect the internal structure of Portable Text blocks
+- Validation passing does NOT mean the structure will work at runtime
+
+### 2. Seed Ingestion: PARTIALLY WORKS
+- `apply.ts:resolveValue()` recursively traverses ALL objects and arrays in `entry.data`
+- It detects `$media` via `isSeedMediaReference()` and resolves via `resolveMedia()`
+- Images ARE downloaded to storage and media records ARE created in the DB
+- The resolved value is a `MediaValue` object:
+  ```json
+  {
+    "provider": "local",
+    "id": "01J...",
+    "alt": "...",
+    "width": 1441,
+    "height": 743,
+    "mimeType": "image/jpeg",
+    "filename": "image.jpg",
+    "meta": { "storageKey": "01J....jpg" }
+  }
+  ```
+
+### 3. Rendering Pipeline: BROKEN
+- `Image.astro` (PT image block renderer) expects:
+  ```ts
+  node.asset: { _ref: string, url?: string, provider?: string }
+  ```
+- For local provider (`provider === "local" || !providerId`), `Image.astro` BYPASSES provider lookup and directly uses:
+  ```astro
+  src = asset.url || `/_emdash/api/media/file/${asset._ref}`
+  ```
+- If `asset` is a `MediaValue` (from `$media` resolution), both `asset.url` and `asset._ref` are undefined
+- Result: `src = "/_emdash/api/media/file/undefined"` — BROKEN IMAGE
+
+### 4. Admin Editor: BROKEN
+- `InlinePortableTextEditor.tsx` expects `asset._ref` and `asset.url`
+- `asset?._ref` would be undefined for `MediaValue` → `mediaId: undefined`, `src: ""`
+
+### 5. PT Converters: BROKEN
+- `portable-text-to-prosemirror.ts:373-376`:
+  ```ts
+  src: block.asset.url || block.asset._ref,
+  mediaId: block.asset._ref,
+  ```
+- `prosemirror-to-portable-text.ts:289-292` creates blocks with `asset._ref` and `asset.url`
+- No normalization of `MediaValue` → PT image block format exists anywhere
+
+### 6. Seed Export: NOT SUPPORTED
+- `export-seed.ts:processDataForExport()` only converts top-level `fieldType === "image"` fields to `$media`
+- It does NOT recurse into Portable Text arrays to convert image blocks back to `$media`
+- This is strong evidence that EmDash's authors never intended `$media` to be used inside PT blocks
+
+---
+
+## Root Cause
+
+The `$media` resolution system (`resolveMedia()`) produces `MediaValue` objects designed for **top-level image fields** (e.g., `featured_image`).
+
+Portable Text image blocks use a DIFFERENT schema (`PortableTextImageBlock`) where the image reference is wrapped in `asset: { _ref, url, provider }`.
+
+There is NO bridge between these two formats in EmDash's codebase.
+
+---
+
+## Fallback Approach for Task 1
+
+### Option A: Two-Phase Seed + Post-Process (Recommended)
+1. **Phase 1 (Seed)**: Put `$media` in PT image blocks AND top-level fields
+   - Images get downloaded to R2, media records created
+2. **Phase 2 (Post-process)**: After `npx emdash seed` completes:
+   - Query `media` table: `SELECT id, storage_key, filename FROM media`
+   - Build URL → media ID map
+   - Query all PT content from `ec_posts` and `ec_pages`
+   - For each `_type: "image"` block where `asset` has `provider` and `id`:
+     - Rewrite to `asset: { _ref: asset.id, url: "/_emdash/api/media/file/" + asset.meta.storageKey }`
+   - Update the content rows
+
+### Option B: Top-Level Only + Leave PT as External URLs
+1. Use `$media` for `featured_image` and `products.image`
+2. Keep PT image blocks with external `asset.url` pointing to microCMS
+3. Simple but incomplete — PT images still reference external CDN
+
+### Option C: Pre-Download + Manual Block Construction
+1. Download all images manually in the migration script
+2. Upload them to R2 via EmDash API
+3. Get media IDs back
+4. Construct PT blocks with proper `asset._ref` from the start
+5. Complex and fragile — requires storage API access
+
+---
+
+## Files Examined
+
+- `node_modules/emdash/src/seed/apply.ts` — `$media` resolution logic
+- `node_modules/emdash/src/seed/validate.ts` — seed validation logic
+- `node_modules/emdash/src/seed/types.ts` — `SeedMediaReference` type
+- `node_modules/emdash/src/components/Image.astro` — PT image block renderer
+- `node_modules/emdash/src/components/PortableText.astro` — PT wrapper
+- `node_modules/emdash/src/components/EmDashMedia.astro` — `MediaValue` renderer (works, but NOT used by Image.astro)
+- `node_modules/emdash/src/components/InlinePortableTextEditor.tsx` — Admin PT editor
+- `node_modules/emdash/src/content/converters/prosemirror-to-portable-text.ts` — PM→PT converter
+- `node_modules/emdash/src/content/converters/portable-text-to-prosemirror.ts` — PT→PM converter
+- `node_modules/emdash/src/content/converters/types.ts` — `PortableTextImageBlock` type
+- `node_modules/emdash/src/cli/commands/export-seed.ts` — seed export (only handles top-level image fields)
+- `node_modules/emdash/src/media/types.ts` — `MediaValue` type
+- `node_modules/emdash/src/media/local-runtime.ts` — local media provider
+- `node_modules/emdash/src/media/provider-loader.ts` — provider loader
+- `node_modules/emdash/src/database/repositories/content.ts` — content CRUD (no PT normalization)
+
+---
+
+## Test Seed Used
+
+File: `.sisyphus/evidence/test-pt-media-seed.json`
+
+Structure:
+```json
+{
+  "_type": "image",
+  "_key": "k1",
+  "alt": "Test image",
+  "asset": {
+    "$media": {
+      "url": "https://images.microcms-assets.io/...",
+      "alt": "Test image",
+      "filename": "test-image.jpg"
+    }
+  }
+}
+```
+
+Validation: PASS
+Runtime rendering: BROKEN (would produce `/_emdash/api/media/file/undefined`)

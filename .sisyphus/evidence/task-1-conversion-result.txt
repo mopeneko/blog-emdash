@@ -1,0 +1,22 @@
+Task 1 - Image to $media Conversion Result
+============================================
+Date: 2026-05-04T16:57:00Z
+Script: scripts/migrate-images.js
+Input:  seed/seed.json.bak (backup of original)
+Output: seed/seed.json
+
+Conversion Stats
+----------------
+  Featured images converted: 11
+  Product images converted:  3
+  PT image blocks converted: 22
+  Unique $media objects:     35
+  Total URL occurrences:     36
+
+Verification
+------------
+Bare microCMS URL strings (outside $media): 0
+All URLs properly wrapped in $media:       YES
+$media objects created:                    36
+
+Result: PASS

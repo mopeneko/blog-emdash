@@ -1,0 +1,86 @@
+[start] Loading seed file...
+[info] Seed file: /home/user/projects/blog-emdash/seed/seed.json
+[start] Validating seed file...
+[success] Seed file is valid
+[info] Database: /home/user/projects/blog-emdash/data.db
+[start] Running migrations...
+[success] Applied 33 migrations
+[start] Applying seed...
+  📥 Downloading: https://images.microcms-assets.io/assets/e867c752378843c78adb2ba39645e8b7/3980ce8468a74bdb880d7afebf4e4aec/s-1995x1200_v-frms_webp_eb87e018-a942-42eb-8857-6f4360ba8941_small.jpg
+  ✅ Uploaded: s-1995x1200_v-frms_webp_eb87e018-a942-42eb-8857-6f4360ba8941_small.jpg
+  📥 Downloading: https://images.microcms-assets.io/assets/e867c752378843c78adb2ba39645e8b7/dce3660d3747420c871fd097fe766f2c/m-200.jpg.webp
+  ✅ Uploaded: m-200.jpg.webp
+  📥 Downloading: https://images.microcms-assets.io/assets/e867c752378843c78adb2ba39645e8b7/bf72a94feba341ae92946172fb91d401/x-can.jpg.webp
+  ✅ Uploaded: x-can.jpg.webp
+  📥 Downloading: https://images.microcms-assets.io/assets/e867c752378843c78adb2ba39645e8b7/1c5c221968f04181b645f947306b08d1/image.jpg
+  ✅ Uploaded: image.jpg
+  📥 Downloading: https://images.microcms-assets.io/assets/e867c752378843c78adb2ba39645e8b7/a56e0d16639f4d9b9a9cd03619085d98/ChatGPT%20Image%202026%E5%B9%B43%E6%9C%8825%E6%97%A5%2022_26_59.jpg
+  ✅ Uploaded: ChatGPT Image 2026年3月25日 22_26_59.jpg
+  📥 Downloading: https://images.microcms-assets.io/assets/e867c752378843c78adb2ba39645e8b7/f969e312e74d4f3f89ea5ed082fc0b73/HCTXY2abEAQ2d3_(1).jpg
+  📥 Downloading: https://images.microcms-assets.io/assets/e867c752378843c78adb2ba39645e8b7/0c8fe06f6cae448e8511af0a641ea4bd/HCTXb6ybIAAXcs1(1).jpg
+  ✅ Uploaded: HCTXY2abEAQ2d3_(1).jpg
+  ✅ Uploaded: HCTXb6ybIAAXcs1(1).jpg
+  📥 Downloading: https://images.microcms-assets.io/assets/e867c752378843c78adb2ba39645e8b7/bfdc5b63f55d4704a6e11cf784aa02ae/Gemini_Generated_Image_m8p8evm8p8evm8p8.jpg
+  ✅ Uploaded: Gemini_Generated_Image_m8p8evm8p8evm8p8.jpg
+  📥 Downloading: https://images.microcms-assets.io/assets/e867c752378843c78adb2ba39645e8b7/8a4661a799354ad4a64281127e86d788/image.png
+  📥 Downloading: https://images.microcms-assets.io/assets/e867c752378843c78adb2ba39645e8b7/4624c951bdfe4e809a5da548614c9902/Screenshot%202025-12-27%20at%2006-38-49%20%E6%B3%A8%E6%96%87.png
+  📥 Downloading: https://images.microcms-assets.io/assets/e867c752378843c78adb2ba39645e8b7/9880b912b89a4177b67c46f3fff4d139/188641.jpg
+  📥 Downloading: https://images.microcms-assets.io/assets/e867c752378843c78adb2ba39645e8b7/ea191fc5bf51445298c623d4b2f68cb3/image.png
+  📥 Downloading: https://images.microcms-assets.io/assets/e867c752378843c78adb2ba39645e8b7/56d1c438452043e1ab3fd5e7fa400257/image.png
+  📥 Downloading: https://images.microcms-assets.io/assets/e867c752378843c78adb2ba39645e8b7/21368f1d21954cb9b3756a2d5fe2b86f/PXL_20251226_212825476(1).jpg
+  📥 Downloading: https://images.microcms-assets.io/assets/e867c752378843c78adb2ba39645e8b7/d2fc1cca6c2c4271bb2de70b9a961a8f/PXL_20251226_221335728(1).jpg
+  ✅ Uploaded: Screenshot 2025-12-27 at 06-38-49 注文.png
+  ✅ Uploaded: image.png
+  ✅ Uploaded: 188641.jpg
+  ✅ Uploaded: image.png
+  ✅ Uploaded: image.png
+  ✅ Uploaded: PXL_20251226_212825476(1).jpg
+  ✅ Uploaded: PXL_20251226_221335728(1).jpg
+  📥 Downloading: https://images.microcms-assets.io/assets/e867c752378843c78adb2ba39645e8b7/ed142a3cbcd147a68538fb1651a40c25/Screenshot_20251028_200215.png
+  📥 Downloading: https://images.microcms-assets.io/assets/e867c752378843c78adb2ba39645e8b7/23378f44e5894a30a3469635c1ea36c4/Screenshot_20251028_201115.png
+  ✅ Uploaded: Screenshot_20251028_200215.png
+  ✅ Uploaded: Screenshot_20251028_201115.png
+  📥 Downloading: https://images.microcms-assets.io/assets/e867c752378843c78adb2ba39645e8b7/8b9dec698d334f609e02291b1bfbbe33/Screenshot_20251028_194458.png
+  ✅ Uploaded: Screenshot_20251028_194458.png
+  📥 Downloading: https://images.microcms-assets.io/assets/e867c752378843c78adb2ba39645e8b7/41e2eba9ace1421ba0f2b48d0d2e4c3f/PXL-20240722-131802873-%E3%82%B3%E3%83%94%E3%83%BC.jpg.webp
+  ✅ Uploaded: PXL-20240722-131802873-コピー.jpg.webp
+  📥 Downloading: https://images.microcms-assets.io/assets/e867c752378843c78adb2ba39645e8b7/4e50168011884c989f47f4f8f741f098/PXL-20240722-125114776-%E3%82%B3%E3%83%94%E3%83%BC.jpg.webp
+  ✅ Uploaded: PXL-20240722-125114776-コピー.jpg.webp
+  📥 Downloading: https://images.microcms-assets.io/assets/e867c752378843c78adb2ba39645e8b7/70041d965ee2454c9e14a5198879fcc5/messageImage_1736099009453.jpg.webp
+  ✅ Uploaded: messageImage_1736099009453.jpg.webp
+  📥 Downloading: https://images.microcms-assets.io/assets/e867c752378843c78adb2ba39645e8b7/aaf33f3df6a74b44b401e9e69e513a83/Screenshot2024-07-05at12-19-57%E3%82%82%E3%81%BA(%40lem0n.cc)%E2%80%94Bluesky.png.webp
+  ✅ Uploaded: Screenshot2024-07-05at12-19-57もぺ(@lem0n.cc)—Bluesky.png.webp
+  📥 Downloading: https://images.microcms-assets.io/assets/e867c752378843c78adb2ba39645e8b7/a0ee2ba6cf404fafaa61e3ee3f2ffc75/foto_no_exif-2--1-.jpg.webp
+  📥 Downloading: https://images.microcms-assets.io/assets/e867c752378843c78adb2ba39645e8b7/e152ed61ad8c4cf9886602c6d406ae10/foto_no_exif-1--1.jpg.webp
+  ✅ Uploaded: foto_no_exif-2--1-.jpg.webp
+  ✅ Uploaded: foto_no_exif-1--1.jpg.webp
+  📥 Downloading: https://images.microcms-assets.io/assets/e867c752378843c78adb2ba39645e8b7/80b939f1398241cab1ef722e91377589/cbg9_thumb.png.webp
+  ✅ Uploaded: cbg9_thumb.png.webp
+  📥 Downloading: https://images.microcms-assets.io/assets/e867c752378843c78adb2ba39645e8b7/d68f1568cf704d0fa69bec2a2fdcc58a/cline-deepseek-r1-cody.png.webp
+  ✅ Uploaded: cline-deepseek-r1-cody.png.webp
+  📥 Downloading: https://images.microcms-assets.io/assets/e867c752378843c78adb2ba39645e8b7/a0b9a87380844e03a99d60fd7d6d4da5/big-data-2103091_1280.png.webp
+  ✅ Uploaded: big-data-2103091_1280.png.webp
+  📥 Downloading: https://images.microcms-assets.io/assets/e867c752378843c78adb2ba39645e8b7/bf5fd9a150244504862ad0b1ff460e3d/audit-6904474_1280.png.webp
+  ✅ Uploaded: audit-6904474_1280.png.webp
+  📥 Downloading: https://images.microcms-assets.io/assets/e867c752378843c78adb2ba39645e8b7/fdc137c9fe804ddcbdd4221387d60c34/brave_screenshot_www.mope-blog.com.png.webp
+  📥 Downloading: https://images.microcms-assets.io/assets/e867c752378843c78adb2ba39645e8b7/59d67a14ed51412d96bce3c565b824e8/GTXTSuFagAMBFUl.jpeg.webp
+  ✅ Uploaded: GTXTSuFagAMBFUl.jpeg.webp
+  ✅ Uploaded: brave_screenshot_www.mope-blog.com.png.webp
+  📥 Downloading: https://images.microcms-assets.io/assets/e867c752378843c78adb2ba39645e8b7/b1574f809aee4f669bc0cead5d67f2bc/ai-generated-8612733_1280.jpg.webp
+  ✅ Uploaded: ai-generated-8612733_1280.jpg.webp
+  📥 Downloading: https://images.microcms-assets.io/assets/e867c752378843c78adb2ba39645e8b7/4fb74e08434441b2912d9e18b0eea315/%E3%82%B9%E3%82%AF%E3%83%AA%E3%83%BC%E3%83%B3%E3%82%B7%E3%83%A7%E3%83%83%E3%83%882024-10-28001601.png.webp
+  📥 Downloading: https://images.microcms-assets.io/assets/e867c752378843c78adb2ba39645e8b7/4e7dc3ca00c24f6eb742f9ff7afcd106/%E3%82%B9%E3%82%AF%E3%83%AA%E3%83%BC%E3%83%B3%E3%82%B7%E3%83%A7%E3%83%83%E3%83%882024-10-28001644.png.webp
+  ✅ Uploaded: スクリーンショット2024-10-28001644.png.webp
+  ✅ Uploaded: スクリーンショット2024-10-28001601.png.webp
+  📥 Downloading: https://images.microcms-assets.io/assets/e867c752378843c78adb2ba39645e8b7/6fdfd4edf98e4edd9da35c683afaa05b/image.png.webp
+  ✅ Uploaded: image.png.webp
+  📥 Downloading: https://images.microcms-assets.io/assets/e867c752378843c78adb2ba39645e8b7/76f5990089aa461d832f6f0c64f0f667/%E3%82%B9%E3%82%AF%E3%83%AA%E3%83%BC%E3%83%B3%E3%82%B7%E3%83%A7%E3%83%83%E3%83%882025-03-24200529.png.webp
+  ✅ Uploaded: スクリーンショット2025-03-24200529.png.webp
+[success] Seed applied successfully!
+[log]
+[info] Collections: 3 created, 0 skipped, 0 updated
+[info] Fields: 11 created, 0 skipped, 0 updated
+[info] Taxonomies: 0 created, 18 terms
+[info] Content: 26 created, 0 skipped, 0 updated
+[info] Media: 35 created, 1 skipped
+[success] Done!

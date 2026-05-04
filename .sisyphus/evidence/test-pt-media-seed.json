@@ -1,0 +1,38 @@
+{
+  "version": "1",
+  "collections": [
+    {
+      "slug": "test_posts",
+      "label": "Test Posts",
+      "fields": [
+        { "slug": "title", "label": "Title", "type": "string" },
+        { "slug": "content", "label": "Content", "type": "portableText" }
+      ]
+    }
+  ],
+  "content": {
+    "test_posts": [
+      {
+        "id": "test-1",
+        "slug": "test-post",
+        "data": {
+          "title": "Test Post",
+          "content": [
+            {
+              "_type": "image",
+              "_key": "k1",
+              "alt": "Test image",
+              "asset": {
+                "$media": {
+                  "url": "https://images.microcms-assets.io/assets/e867c752378843c78adb2ba39645e8b7/1c5c221968f04181b645f947306b08d1/image.jpg",
+                  "alt": "Test image",
+                  "filename": "test-image.jpg"
+                }
+              }
+            }
+          ]
+        }
+      }
+    ]
+  }
+}

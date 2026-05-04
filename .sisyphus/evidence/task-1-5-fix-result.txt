@@ -1,0 +1,31 @@
+Task 1.5: Fix PT Image Blocks in Database
+===========================================
+Date: 2026-05-04
+Script: scripts/fix-pt-images.js
+
+Result: 22 image block(s) fixed across 11 row(s)
+
+Breakdown:
+  ec_posts: 22 block(s) fixed across 11 row(s)
+  ec_pages: 0 block(s) fixed across 0 row(s)
+
+Fixed posts:
+  - deploy-bun-bot-to-nixos: 1
+  - blog-migrated-vinext: 2
+  - fiio-k13-r2r-review: 7
+  - cachyos-brave-hardware-video-acceleration: 2
+  - v-moda-m-200-review: 1
+  - astro-5-vitest-error: 1
+  - cbg9-review: 2
+  - indivisual-blog-privacy: 2
+  - kamal-deploy-existing-images: 2
+  - screenshare-with-audio-on-linux: 1
+  - docker-compose-healthcheck: 1
+
+Transformation:
+  Before: asset: { provider: "local", id: "...", meta: { storageKey: "..." }, ... }
+  After:  asset: { _ref: "<id>", url: "/_emdash/api/media/file/<storageKey>" }
+
+Verification:
+  - Fixed block structure confirmed via DB query ✓
+  - Zero remaining blocks with provider:"local" ✓
