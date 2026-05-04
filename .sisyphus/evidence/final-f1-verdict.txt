@@ -1,0 +1,55 @@
+# F1: Plan Compliance Audit — microcms-image-migration
+## Date: 2026-05-04
+## Agent: oracle (deepseek-v4-pro)
+
+## Must Have [4/4]
+
+| # | Requirement | Status | Evidence |
+|---|---|---|---|
+| 1 | 3 image contexts converted | ✅ PASS | scripts/migrate-images.js: lines 109-113 (posts.featured_image), 121-127 (products.image), 71-89 + 130-135 (PT blocks). Commit 6fbaa04: 11 featured, 3 product, 22 PT blocks. |
+| 2 | Backup seed/seed.json.bak | ✅ PASS | File exists: 278893 bytes, same timestamp as conversion |
+| 3 | URL deduplication | ✅ PASS | scripts/migrate-images.js: line 31 (mediaCache Map), lines 51-54. 35 unique URLs confirmed via `grep -oP ... | sort -u | wc -l` |
+| 4 | Filename extraction (URL decode + query removal) | ✅ PASS | scripts/migrate-images.js: extractFilename() at lines 39-48. Uses `new URL()`, `decodeURIComponent()`, path basename |
+
+## Must NOT Have [6/6]
+
+| # | Guardrail | Status | Evidence |
+|---|---|---|---|
+| 1 | No astro.config.mjs or src/ changes | ✅ PASS | `git log --all --oneline -- astro.config.mjs src/` shows only pre-existing unrelated commits (029ef5b lang=ja, a38b81e initial). Migration commits 6fbaa04 + ef60079 touch only scripts/, seed/, .sisyphus/evidence/ |
+| 2 | No image optimization | ✅ PASS | Script does URL → $media format only. No sharp/imagemagick/jimp usage, no resize/compress calls |
+| 3 | No schema changes | ✅ PASS | `grep -c '"type"'` = 11 in both seed.json and seed.json.bak. Schema definitions identical |
+| 4 | No new alt text | ✅ PASS | Script uses `alt \|\| ''` for PT blocks (line 82), empty string for image fields (lines 112, 125). All alt values preserved verbatim |
+| 5 | No new npm dependencies | ✅ PASS | Migration commits (6fbaa04, ef60079) do not include package.json. fix-pt-images.js uses node:sqlite (Node.js built-in) |
+| 6 | No HTML img tags processed | ✅ PASS | Script targets JSON Portable Text blocks only. No HTML parsing in migration pipeline |
+
+## Tasks [5/5]
+
+| Task | Status | Evidence File |
+|---|---|---|
+| Task 0 (Spike) | ✅ COMPLETE | .sisyphus/evidence/task-0-spike-result.txt (145 lines) |
+| Task 1 (Backup + Script + Convert) | ✅ COMPLETE | .sisyphus/evidence/task-1-conversion-result.txt, task-1-backup-check.txt |
+| Task 2 (Validation) | ✅ COMPLETE | .sisyphus/evidence/task-2-validation.txt — PASS (0 errors, 0 warnings) |
+| Task 3 (Seed execution) | ✅ COMPLETE | .sisyphus/evidence/task-3-seed-output.log |
+| Task 4 (Verify: DB + HTTP + R2) | ✅ COMPLETE | .sisyphus/evidence/task-4-verify.txt — 35 media entries, no microCMS URLs, PT blocks fixed |
+
+## Deliverables Verification
+
+| Deliverable | Status | Notes |
+|---|---|---|
+| scripts/migrate-images.js | ✅ EXISTS | 151 lines, converts all 3 contexts |
+| scripts/fix-pt-images.js | ✅ EXISTS | 108 lines, post-process DB for PT image block compatibility |
+| seed/seed.json (converted) | ✅ EXISTS | 36 $media references, 35 unique URLs |
+| seed/seed.json.bak (backup) | ✅ EXISTS | 278893 bytes |
+| R2 storage files | ✅ EXISTS | 35 new files in uploads/; R2 blobs confirmed |
+| Evidence files | ✅ EXISTS | 9 files (tasks 0-4 + spike test) |
+
+## Caveats
+- .sisyphus/evidence/final-qa/ directory is empty (F3's responsibility, not F1's)
+- The fix-pt-images.js script was not in the original plan but was a necessary adaptation after Task 0 discovered PT $media incompatibility (documented in learnings.md and reflected in commit ef60079)
+
+## VERDICT: APPROVE
+
+All 4 Must Have requirements fulfilled.
+All 6 Must NOT Have guardrails satisfied.
+All 5 tasks have acceptance evidence.
+All deliverables present and accounted for.
