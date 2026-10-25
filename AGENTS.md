@@ -3,9 +3,9 @@ This is an EmDash site -- a CMS built on Astro with a full admin UI.
 ## Commands
 
 ```bash
-npx emdash dev        # Start dev server (runs migrations, seeds, generates types)
-npx emdash types      # Regenerate TypeScript types from schema
-npx emdash seed seed/seed.json --validate  # Validate seed file
+bun run dev           # Start the Astro dev server (migrations run on first request; types regenerate on start)
+bunx emdash types     # Regenerate TypeScript types from a running site
+bunx emdash seed seed/seed.json --validate  # Validate seed file
 ```
 
 The admin UI is at `http://localhost:4321/_emdash/admin`.
