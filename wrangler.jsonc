@@ -27,7 +27,7 @@
 	],
 	"routes": [
 		{
-			"pattern": "www.mope-blog.com",
+			"pattern": "blog.lem0n.cc",
 			"custom_domain": true
 		}
 	],
