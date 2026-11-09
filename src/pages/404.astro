@@ -2,32 +2,19 @@
 import Base from "../layouts/Base.astro";
 ---
 
-<Base title="Page not found">
+<Base title="ページが見つかりません">
 	<div class="not-found">
+		<p>PAGE NOT FOUND</p>
 		<h1>404</h1>
-		<p>The page you're looking for doesn't exist.</p>
-		<a href="/">Go back home</a>
+		<p>お探しのページは見つかりませんでした。</p>
+		<a href="/">記事一覧へ戻る</a>
 	</div>
 </Base>
 
 <style>
-	.not-found {
-		text-align: center;
-		padding: var(--spacing-24) var(--spacing-6);
-	}
-
-	.not-found h1 {
-		font-size: var(--font-size-5xl);
-		margin-bottom: var(--spacing-2);
-		color: var(--color-border);
-	}
-
-	.not-found p {
-		color: var(--color-muted);
-		margin-bottom: var(--spacing-6);
-	}
-
-	.not-found a {
-		color: var(--color-text);
-	}
+	.not-found { max-width: 740px; margin: 0 auto; padding: 96px 24px; text-align: center; }
+	.not-found > p:first-child { color: var(--color-accent); font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.08em; }
+	.not-found h1 { margin: 8px 0 16px; color: var(--color-border-strong); font-family: var(--font-mono); font-size: 64px; }
+	.not-found h1 + p { margin-bottom: 24px; color: var(--color-muted); }
+	.not-found a { display: inline-block; padding: 8px 16px; border: 1px solid var(--color-border-strong); border-radius: var(--radius); color: var(--color-text); font-size: 13px; }
 </style>

@@ -1,141 +1,66 @@
 ---
 export const prerender = false;
 
-import { getEmDashCollection } from "emdash";
+import { getEmDashCollection, getEntryTerms, getTaxonomyTermsWithCacheHint } from "emdash";
 import Base from "../layouts/Base.astro";
 import PostCard from "../components/PostCard.astro";
-import { getReadingTime, extractText } from "../utils/reading-time";
+import { extractText } from "../utils/reading-time";
+import { toPostCardProps } from "../utils/post-presentation";
 
 const query = Astro.url.searchParams.get("q")?.trim() || "";
+const { entries: allPosts, cacheHint } = await getEmDashCollection("posts", {
+	orderBy: { published_at: "desc" },
+});
+Astro.cache.set(cacheHint);
 
-const { entries: allPosts } = await getEmDashCollection("posts");
-
-// Simple search: match query against title, excerpt, and content
 function matchesQuery(post: (typeof allPosts)[0], q: string): boolean {
 	if (!q) return false;
 	const lower = q.toLowerCase();
-	const title = (post.data.title || "").toLowerCase();
-	const excerpt = (post.data.excerpt || "").toLowerCase();
-	// Extract plain text from portable text blocks (avoids matching on _type, _key, etc.)
-	const content = extractText(post.data.content).toLowerCase();
-	return (
-		title.includes(lower) || excerpt.includes(lower) || content.includes(lower)
-	);
+	return [post.data.title, post.data.excerpt, extractText(post.data.content)]
+		.filter((value): value is string => typeof value === "string")
+		.some((value) => value.toLowerCase().includes(lower));
 }
 
-const results = query ? allPosts.filter((p) => matchesQuery(p, query)) : [];
+const results = query ? allPosts.filter((post) => matchesQuery(post, query)) : [];
+if (results.length > 0) {
+	const { cacheHint: taxonomyCacheHint } = await getTaxonomyTermsWithCacheHint("tag", { includeCounts: false });
+	Astro.cache.set(taxonomyCacheHint);
+}
+const cards = await Promise.all(
+	results.map(async (post) => toPostCardProps(
+		post.data,
+		`/posts/${post.id}`,
+		await getEntryTerms("posts", post.data.id, "tag"),
+	)),
+);
 ---
 
-<Base
-	title={query ? `Search: ${query}` : "Search"}
-	description="Search blog posts"
->
+<Base title={query ? `検索: ${query}` : "検索"} description="記事を検索">
 	<section class="search-page">
-		<h1 class="search-title">Search</h1>
-
+		<header class="search-header">
+			<p>SEARCH</p>
+			<h1>記事を検索</h1>
+		</header>
 		<form method="get" action="/search" class="search-form">
-			<input
-				type="search"
-				name="q"
-				value={query}
-				placeholder="Search posts..."
-				class="search-input"
-				autofocus
-			/>
-			<button type="submit" class="search-button">Search</button>
+			<input type="search" name="q" value={query} placeholder="キーワードを入力..." class="search-input" autofocus />
+			<button type="submit" class="search-button">検索</button>
 		</form>
-
-		{
-			query && (
-				<p class="search-summary">
-					{results.length === 0
-						? `No results for "${query}"`
-						: `${results.length} result${results.length === 1 ? "" : "s"} for "${query}"`}
-				</p>
-			)
-		}
-
-		{
-			results.length > 0 && (
-				<div class="search-results">
-					{results.map((post) => (
-						<PostCard
-							title={post.data.title}
-							excerpt={post.data.excerpt}
-							featuredImage={post.data.featured_image}
-							href={`/posts/${post.id}`}
-							date={post.data.publishedAt ?? undefined}
-							readingTime={getReadingTime(post.data.content)}
-						/>
-					))}
-				</div>
-			)
-		}
-
-		{!query && <p class="search-hint">Enter a search term to find posts.</p>}
+		{query && <p class="search-summary">「{query}」の検索結果は {cards.length} 件です。</p>}
+		<div class="search-results">{cards.map((card) => <PostCard {...card} />)}</div>
+		{!query && <p class="search-hint">タイトル、抜粋、本文から検索できます。</p>}
 	</section>
 </Base>
 
 <style>
-	.search-page {
-		max-width: var(--max-width);
-		margin: 0 auto;
-		padding: var(--spacing-8) var(--spacing-6) var(--spacing-16);
-	}
-
-	.search-title {
-		font-size: var(--font-size-2xl);
-		margin-bottom: var(--spacing-6);
-	}
-
-	.search-form {
-		display: flex;
-		gap: var(--spacing-2);
-		margin-bottom: var(--spacing-8);
-	}
-
-	.search-input {
-		flex: 1;
-		padding: var(--spacing-2) var(--spacing-4);
-		font-size: var(--font-size-base);
-		border: 1px solid var(--color-border);
-		border-radius: var(--radius);
-		background: var(--color-bg);
-		color: var(--color-text);
-	}
-
-	.search-input:focus {
-		outline: none;
-		border-color: var(--color-accent);
-	}
-
-	.search-button {
-		padding: var(--spacing-2) var(--spacing-6);
-		font-size: var(--font-size-base);
-		background: var(--color-accent);
-		color: var(--color-on-accent);
-		border: none;
-		border-radius: var(--radius);
-		cursor: pointer;
-		font-weight: 500;
-	}
-
-	.search-button:hover {
-		opacity: 0.9;
-	}
-
-	.search-summary {
-		color: var(--color-muted);
-		margin-bottom: var(--spacing-6);
-	}
-
-	.search-hint {
-		color: var(--color-muted);
-	}
-
-	.search-results {
-		display: flex;
-		flex-direction: column;
-		gap: var(--spacing-8);
-	}
+	.search-page { max-width: 900px; margin: 0 auto; padding: 48px 24px 80px; }
+	.search-header { margin-bottom: 24px; }
+	.search-header p { margin-bottom: 8px; color: var(--color-accent); font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.08em; }
+	.search-header h1 { font-size: 30px; }
+	.search-form { display: flex; gap: 8px; margin-bottom: 24px; }
+	.search-input { flex: 1; min-width: 0; padding: 10px 14px; border: 1px solid var(--color-border-strong); border-radius: var(--radius); background: var(--color-bg); color: var(--color-text); font: inherit; font-size: 14px; }
+	.search-input:focus { outline: none; border-color: var(--color-accent); box-shadow: 0 0 0 3px var(--color-accent-ring); }
+	.search-button { padding: 8px 20px; border: 0; border-radius: var(--radius); background: var(--color-accent); color: var(--color-on-accent); cursor: pointer; font: inherit; font-size: 14px; font-weight: 500; }
+	.search-summary, .search-hint { margin-bottom: 20px; color: var(--color-muted); font-size: 13px; }
+	.search-results { border-top: 1px solid var(--color-border); }
+	@media (max-width: 680px) { .search-page { padding: 32px 20px 56px; } }
 </style>

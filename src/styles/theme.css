@@ -1,108 +1,89 @@
-/*
-  theme.css -- override any :root variable here to retheme the blog.
-
-  This is the only file you need to edit to customize the site's visual
-  appearance. All defaults are listed below as comments. Uncomment and
-  change any value to override it.
-
-  Base.astro puts its defaults inside @layer base, so declarations here
-  (which are unlayered) always take priority -- no specificity tricks needed.
-
-  Note: this template defines explicit dark mode colors in Base.astro.
-  Overriding light-mode --color-* variables here won't affect dark mode.
-  To customize dark mode, also override --color-* variables inside a
-  @media (prefers-color-scheme: dark) block and/or in the :root.dark rule.
-*/
-
 :root {
-	/* --- Colors ---
-	--color-bg: #ffffff;
-	--color-bg-subtle: #fafafa;
-	--color-text: #1a1a1a;
-	--color-text-secondary: #525252;
-	--color-muted: #8b8b8b;
-	--color-border: #e5e5e5;
-	--color-border-subtle: #f0f0f0;
-	--color-surface: #f7f7f7;
-	--color-accent: #0066cc;
-	--color-accent-hover: #0052a3;
-	--color-on-accent: white;
+	--color-bg: #fafaf9;
+	--color-bg-subtle: #f5f5f4;
+	--color-text: #292524;
+	--color-text-secondary: #57534e;
+	--color-muted: #78716c;
+	--color-border: #e7e5e4;
+	--color-border-subtle: #e7e5e4;
+	--color-border-strong: #d6d3d1;
+	--color-surface: #ffffff;
+	--color-accent: #1a7a6d;
+	--color-accent-hover: #146156;
+	--color-on-accent: #ffffff;
+	--color-accent-soft: rgba(26, 122, 109, 0.1);
 	--color-accent-ring: color-mix(in srgb, var(--color-accent) 25%, transparent);
-	*/
-
-	/* --- Type scale ---
-	--font-size-xs: 0.8125rem;
-	--font-size-sm: 0.875rem;
-	--font-size-base: 1rem;
-	--font-size-lg: 1.125rem;
-	--font-size-xl: 1.25rem;
-	--font-size-2xl: 1.5rem;
-	--font-size-3xl: 2rem;
-	--font-size-4xl: 2.5rem;
-	--font-size-5xl: 3.5rem;
-	*/
-
-	/* --- Line heights ---
-	--leading-tight: 1.15;
-	--leading-snug: 1.3;
-	--leading-normal: 1.5;
-	--leading-relaxed: 1.7;
-	*/
-
-	/* --- Letter spacing ---
-	--tracking-tight: -0.03em;    used on h1 and large titles
-	--tracking-snug: -0.02em;     used on h2–h6, site/card titles
-	--tracking-wide: 0.06em;      used on meta labels, TOC/widget titles
-	--tracking-wider: 0.08em;     used on footer headings, section labels
-	*/
-
-	/* --- Spacing ---
-	--spacing-1: 0.25rem;
-	--spacing-2: 0.5rem;
-	--spacing-3: 0.75rem;
-	--spacing-4: 1rem;
-	--spacing-5: 1.25rem;
-	--spacing-6: 1.5rem;
-	--spacing-8: 2rem;
-	--spacing-10: 2.5rem;
-	--spacing-12: 3rem;
-	--spacing-16: 4rem;
-	--spacing-20: 5rem;
-	--spacing-24: 6rem;
-	*/
-
-	/* --- Layout ---
-	--content-width: 680px;       article/page body column width
-	--wide-width: 1200px;         max container width (home, archives)
-	--gutter-width: 200px;        right sidebar column (TOC) on article pages
-	--meta-col-width: 180px;      left meta column on article pages
-	--nav-height: 64px;           sticky header height
-	--search-input-width: 180px;  nav search box width
-	*/
-
-	/* --- Borders & radius ---
+	--tag-bg: #f5f5f4;
+	--tag-fg: #44403c;
+	--tag-border: #e7e5e4;
+	--code-bg: #1c1917;
+	--code-fg: #f5f5f4;
+	--code-header: #292524;
+	--code-border: #292524;
+	--inline-code-bg: #f0efed;
+	--inline-code-fg: #0f5c52;
 	--radius: 4px;
 	--radius-lg: 8px;
-	*/
-
-	/* --- Transitions ---
+	--leading-relaxed: 1.95;
+	--content-width: 740px;
+	--wide-width: 1140px;
+	--article-width: 1028px;
+	--gutter-width: 240px;
+	--nav-height: 62px;
+	--search-input-width: 210px;
+	--tag-padding-y: 2px;
 	--transition-fast: 120ms ease;
 	--transition-base: 180ms ease;
-	*/
+}
 
-	/* --- Avatars ---
-	--avatar-size-xs: 18px;    card byline avatars
-	--avatar-size-sm: 20px;    post list byline avatars
-	--avatar-size-md: 24px;    featured post byline avatars
-	--avatar-size-lg: 32px;    single post byline avatars
-	*/
+@media (prefers-color-scheme: dark) {
+	:root:not(.light) {
+		--color-bg: #0c0a09;
+		--color-bg-subtle: #1c1917;
+		--color-text: #f5f5f4;
+		--color-text-secondary: #d6d3d1;
+		--color-muted: #a8a29e;
+		--color-border: #292524;
+		--color-border-subtle: #292524;
+		--color-border-strong: #44403c;
+		--color-surface: #141210;
+		--color-accent: #2dd4bf;
+		--color-accent-hover: #5eead4;
+		--color-on-accent: #141210;
+		--color-accent-soft: rgba(45, 212, 191, 0.12);
+		--tag-bg: #1c1917;
+		--tag-fg: #d6d3d1;
+		--tag-border: #292524;
+		--code-bg: #141210;
+		--code-fg: #f5f5f4;
+		--code-header: #1c1917;
+		--code-border: #292524;
+		--inline-code-bg: #1c1917;
+		--inline-code-fg: #5eead4;
+	}
+}
 
-	/* --- Shadows ---
-	--shadow-dropdown: 0 8px 30px rgba(0, 0, 0, 0.12);
-	--shadow-btn-active: 0 1px 2px rgba(0, 0, 0, 0.05);
-	*/
-
-	/* --- Misc ---
-	--tag-padding-y: 2px;    vertical padding on tag pills
-	*/
+:root.dark {
+	--color-bg: #0c0a09;
+	--color-bg-subtle: #1c1917;
+	--color-text: #f5f5f4;
+	--color-text-secondary: #d6d3d1;
+	--color-muted: #a8a29e;
+	--color-border: #292524;
+	--color-border-subtle: #292524;
+	--color-border-strong: #44403c;
+	--color-surface: #141210;
+	--color-accent: #2dd4bf;
+	--color-accent-hover: #5eead4;
+	--color-on-accent: #141210;
+	--color-accent-soft: rgba(45, 212, 191, 0.12);
+	--tag-bg: #1c1917;
+	--tag-fg: #d6d3d1;
+	--tag-border: #292524;
+	--code-bg: #141210;
+	--code-fg: #f5f5f4;
+	--code-header: #1c1917;
+	--code-border: #292524;
+	--inline-code-bg: #1c1917;
+	--inline-code-fg: #5eead4;
 }

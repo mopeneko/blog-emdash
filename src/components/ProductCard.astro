@@ -1,51 +1,44 @@
 ---
-import type { MediaValue } from "emdash";
+import type { InferCollectionData } from "emdash";
 import { Image } from "emdash/ui";
+
+interface Props {
+	product: InferCollectionData<"products">;
+}
 
 interface ProductLink {
 	label: string;
 	url: string;
 }
 
-interface Props {
-	product: {
-		data: {
-			title: string;
-			maker?: string;
-			image?: MediaValue | string;
-			links?: ProductLink[];
-		};
-	};
+function isProductLink(value: unknown): value is ProductLink {
+	if (!value || typeof value !== "object") return false;
+	const link = value as Record<string, unknown>;
+	return typeof link.label === "string" && typeof link.url === "string";
 }
 
 const { product } = Astro.props;
-const { title, maker, image, links = [] } = product.data;
+const links = Array.isArray(product.links) ? product.links.filter(isProductLink) : [];
 ---
 
 <section class="product-card">
 	<span class="product-card__label">スポンサーリンク</span>
 	<div class="product-card__body">
-		{image && (
-			<div class="product-card__image">
-				<Image image={image} />
-			</div>
+		{product.image && (
+			<div class="product-card__image"><Image image={product.image} /></div>
 		)}
 		<div class="product-card__main">
-			<div class="product-card__text">
-				<h2 class="product-card__title">{title}</h2>
-				{maker && <span class="product-card__maker">メーカー: {maker}</span>}
-			</div>
+			{product.maker && <p class="product-card__maker">{product.maker}</p>}
+			<h2 class="product-card__title">{product.title}</h2>
 			{links.length > 0 && (
-				<div class="product-card__buttons">
-					{links.map((link) => (
+				<div class="product-card__links">
+					{links.map((link, index) => (
 						<a
 							href={link.url}
 							target="_blank"
 							rel="sponsored noopener"
-							class="product-card__button"
-						>
-							{link.label}
-						</a>
+							class:list={["product-card__link", { "product-card__link--sub": index > 0 }]}
+						>{link.label}</a>
 					))}
 				</div>
 			)}
@@ -55,100 +48,104 @@ const { title, maker, image, links = [] } = product.data;
 
 <style>
 	.product-card {
-		display: flex;
-		flex-direction: column;
-		gap: var(--spacing-2);
-		margin: var(--spacing-10) 0;
+		margin: 40px 0;
 	}
 
 	.product-card__label {
-		font-size: var(--font-size-sm);
+		display: block;
+		margin-bottom: 6px;
 		color: var(--color-muted);
+		font-size: 11px;
 	}
 
 	.product-card__body {
 		display: flex;
 		align-items: center;
-		gap: var(--spacing-5);
-		padding: var(--spacing-5);
+		gap: 20px;
+		padding: 20px;
 		border: 1px solid var(--color-border);
 		border-radius: var(--radius-lg);
-		background: var(--color-bg);
+		background: var(--color-surface);
 	}
 
 	.product-card__image {
-		flex: 0 0 auto;
-		width: 128px;
-		height: 128px;
+		flex: 0 0 112px;
+		width: 112px;
+		height: 84px;
+		padding: 4px;
+		border: 1px solid var(--color-border);
 		border-radius: var(--radius);
-		overflow: hidden;
+		background: #fff;
 	}
 
 	.product-card__image :global(img) {
 		width: 100%;
 		height: 100%;
-		object-fit: cover;
+		object-fit: contain;
 	}
 
 	.product-card__main {
-		display: flex;
-		flex-direction: column;
-		gap: var(--spacing-3);
-		flex: 1;
 		min-width: 0;
 	}
 
-	.product-card__text {
-		display: flex;
-		flex-direction: column;
-		gap: var(--spacing-1);
+	.product-card__maker {
+		margin-bottom: 4px;
+		color: var(--color-muted);
+		font-family: var(--font-mono);
+		font-size: 11px;
 	}
 
 	.product-card__title {
-		font-size: var(--font-size-xl);
-		font-weight: 600;
-		margin: 0;
+		margin-bottom: 10px;
+		font-size: 17px;
+		line-height: 1.5;
+		overflow-wrap: anywhere;
 	}
 
-	.product-card__maker {
-		font-size: var(--font-size-sm);
-		color: var(--color-muted);
-	}
-
-	.product-card__buttons {
+	.product-card__links {
 		display: flex;
 		flex-wrap: wrap;
-		gap: var(--spacing-2);
+		gap: 8px;
 	}
 
-	.product-card__button {
-		display: inline-block;
-		padding: var(--spacing-2) var(--spacing-4);
-		font-size: var(--font-size-sm);
-		font-weight: 500;
-		color: var(--color-on-accent);
-		background: var(--color-accent);
+	.product-card__link {
+		display: inline-flex;
+		align-items: center;
+		max-width: 100%;
+		padding: 8px 14px;
+		border: 1px solid var(--color-accent);
 		border-radius: var(--radius);
+		background: var(--color-accent);
+		color: #fff;
+		font-size: 12.5px;
+		font-weight: 500;
+		line-height: 1.2;
+		overflow-wrap: anywhere;
 		text-decoration: none;
-		transition: opacity var(--transition-fast);
 	}
 
-	.product-card__button:hover {
-		opacity: 0.85;
+	:global(.dark) .product-card__link {
+		color: #141210;
+	}
+
+	.product-card__link--sub {
+		border-color: var(--color-border-strong);
+		background: var(--color-bg-subtle);
+		color: var(--color-text);
+	}
+
+	:global(.dark) .product-card__link--sub {
+		color: var(--color-text);
+	}
+
+	.product-card__link:hover {
+		opacity: 0.88;
 	}
 
 	@media (max-width: 600px) {
 		.product-card__body {
+			align-items: flex-start;
 			flex-direction: column;
-			align-items: stretch;
-		}
-
-		.product-card__image {
-			width: 100%;
-			height: auto;
-			aspect-ratio: 1;
-			max-width: 200px;
-			margin: 0 auto;
 		}
 	}
 </style>

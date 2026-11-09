@@ -27,7 +27,7 @@ export default defineConfig({
 	fonts: [
 		{
 			provider: fontProviders.google(),
-			name: "Inter",
+			name: "Noto Sans JP",
 			cssVariable: "--font-sans",
 			weights: [400, 500, 600, 700],
 			fallbacks: ["sans-serif"],
@@ -36,7 +36,7 @@ export default defineConfig({
 			provider: fontProviders.google(),
 			name: "JetBrains Mono",
 			cssVariable: "--font-mono",
-			weights: [400, 500],
+			weights: [400, 500, 600],
 			fallbacks: ["monospace"],
 		},
 	],
