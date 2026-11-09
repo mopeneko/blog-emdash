@@ -8,7 +8,7 @@ A clean, minimal blog built with [EmDash](https://github.com/emdash-cms/emdash) 
 
 ## What's Included
 
-- Homepage topic sidebar with real tag counts and a complete post stream
+- Homepage with a complete post stream
 - Shared post cards with JST dates, excerpts, character counts, code block counts, and reading time estimates
 - Compact article headers with a sticky table of contents
 - Category and tag archives
