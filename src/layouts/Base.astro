@@ -265,7 +265,7 @@ const isLoggedIn = !!Astro.locals.user;
 		</style>
 
 		<style>
-			.site-header { position: sticky; top: 0; z-index: 100; border-bottom: 1px solid var(--color-border); background: color-mix(in srgb, var(--color-bg) 92%, transparent); backdrop-filter: blur(8px); }
+			.site-header { position: relative; z-index: 100; border-bottom: 1px solid var(--color-border); background: color-mix(in srgb, var(--color-bg) 92%, transparent); backdrop-filter: blur(8px); }
 			.site-header__inner { display: flex; align-items: center; justify-content: space-between; gap: 20px; max-width: var(--wide-width); height: var(--nav-height); margin: 0 auto; padding: 0 24px; }
 			.site-title { flex: none; color: var(--color-text); font-size: 19px; font-weight: 600; letter-spacing: -0.01em; }
 			.site-title:hover { color: var(--color-text); }
