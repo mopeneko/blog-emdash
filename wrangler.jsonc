@@ -1,10 +1,17 @@
 {
 	"$schema": "node_modules/wrangler/config-schema.json",
 	"name": "my-emdash-site",
+	"account_id": "71395362d758c6c599d8ec54f35f98de",
 	"main": "./src/worker.ts",
 	"compatibility_date": "2026-02-24",
 	"compatibility_flags": [
 		"nodejs_compat"
+	],
+	"kv_namespaces": [
+		{
+			"binding": "SESSION",
+			"id": "6edb8f743fbf4942bf99aaa25b4babc4"
+		}
 	],
 	"d1_databases": [
 		{
