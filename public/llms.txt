@@ -1,0 +1,11 @@
+# もぺブログ
+
+> ソフトウェア開発や個人開発について書くブログです。
+
+## 記事
+
+- [記事一覧](https://blog.lem0n.cc/): 公開記事の一覧です。
+- [RSS フィード](https://blog.lem0n.cc/rss.xml): 最近の公開記事を取得できます。
+- [Vencode の開発記事（Markdown）](https://blog.lem0n.cc/posts/built-vencode.md): 記事の Markdown 版の例です。
+
+公開記事の URL が `/posts/<slug>` の場合、`/posts/<slug>.md` で Markdown 版を取得できます。
