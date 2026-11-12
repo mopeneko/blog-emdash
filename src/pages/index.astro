@@ -6,6 +6,9 @@ import { toPostCardProps } from "../utils/post-presentation";
 import { resolveBlogSiteIdentity } from "../utils/site-identity";
 import { getSiteSettings } from "emdash";
 
+Astro.response.headers.append("Link", '</llms.txt>; rel="describedby"; type="text/plain"');
+Astro.response.headers.append("Link", '</rss.xml>; rel="alternate"; type="application/rss+xml"');
+
 const postsResult = await getEmDashCollection("posts", {
 	orderBy: { published_at: "desc" },
 });
