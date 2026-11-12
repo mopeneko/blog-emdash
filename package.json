@@ -18,6 +18,7 @@
     "@emdash-cms/cloudflare": "^1.4.0",
     "@emdash-cms/plugin-forms": "^0.2.12",
     "@emdash-cms/plugin-webhook-notifier": "^0.2.3",
+    "@portabletext/markdown": "^2.9.4",
     "astro": "^6.0.1",
     "emdash": "^1.4.0",
     "react": "19.2.4",
