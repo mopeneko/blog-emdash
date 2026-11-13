@@ -1,5 +1,16 @@
 ---
 import Base from "../layouts/Base.astro";
+import {
+	markdownResponse,
+	negotiate,
+	renderNotFoundMarkdown,
+} from "../utils/content-negotiation";
+
+const negotiation = negotiate(Astro.request.headers.get("Accept"));
+if (negotiation.kind === "representation" && negotiation.mediaType === "text/markdown") {
+	return markdownResponse(renderNotFoundMarkdown(Astro.url), { status: 404 });
+}
+Astro.response.headers.append("Vary", "Accept");
 ---
 
 <Base title="ページが見つかりません">
