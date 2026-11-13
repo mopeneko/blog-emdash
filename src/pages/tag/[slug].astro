@@ -6,7 +6,7 @@ import { toPostCardProps } from "../../utils/post-presentation";
 
 const slug = decodeSlug(Astro.params.slug);
 const term = slug ? await getTerm("tag", slug) : null;
-if (!term) return Astro.redirect("/404");
+if (!term) return new Response(null, { status: 404 });
 const { cacheHint: taxonomyCacheHint } = await getTaxonomyTermsWithCacheHint("tag", { includeCounts: false });
 Astro.cache.set(taxonomyCacheHint);
 const { entries: posts, cacheHint } = await getEmDashCollection("posts", {
