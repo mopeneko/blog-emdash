@@ -71,6 +71,12 @@ const pageCtx = createPublicPageContext({
 	siteName: siteTitle,
 });
 const isLoggedIn = !!Astro.locals.user;
+
+const THEME_OPTIONS = [
+	{ value: "light", label: "ライト" },
+	{ value: "dark", label: "ダーク" },
+	{ value: "system", label: "システム" },
+] as const;
 ---
 
 <!doctype html>
@@ -78,26 +84,25 @@ const isLoggedIn = !!Astro.locals.user;
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta name="color-scheme" content="light dark" />
+		<script is:inline>
+			// Only prevents a flash of the wrong scheme; the toggle logic loads later.
+			try {
+				var stored = localStorage.getItem("color-scheme");
+				if (stored === "light" || stored === "dark") {
+					document.querySelector('meta[name="color-scheme"]').content = stored;
+				}
+			} catch (error) {}
+		</script>
 		<Font cssVariable="--font-sans" preload />
 		<Font cssVariable="--font-mono" />
 		<title>{fullTitle}</title>
 		{siteFavicon && <link rel="icon" href={siteFavicon} />}
 		<EmDashHead page={pageCtx} />
-		<script is:inline>
-			(function () {
-				var c = document.cookie;
-				var i = c.indexOf("theme=");
-				var theme = i >= 0 ? c.slice(i + 6).split(";")[0] : null;
-				if (theme === "dark" || theme === "light") {
-					document.documentElement.classList.add(theme);
-				} else if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
-					document.documentElement.classList.add("dark");
-				}
-			})();
-		</script>
 	</head>
 	<body>
 		<EmDashBodyStart page={pageCtx} />
+		<a href="#main-content" class="skip-link">本文へスキップ</a>
 		<header class="site-header">
 			<div class="site-header__inner">
 				<a href="/" class="site-title">mopeneko</a>
@@ -107,15 +112,17 @@ const isLoggedIn = !!Astro.locals.user;
 							<a href={item.url} target={item.target} rel={item.target === "_blank" ? "noopener noreferrer" : undefined}>{item.label}</a>
 						))}
 					</nav>
-					<LiveSearch
-						placeholder="記事・ページを検索..."
-						class="site-search"
-						inputClass="site-search-input"
-						resultsClass="site-search-results"
-						resultClass="site-search-result"
-						collections={["posts", "pages"]}
-					/>
-					<button type="button" class="header-theme" aria-label="テーマを切り替える" title="テーマを切り替える">
+					<search class="site-search-wrap">
+						<LiveSearch
+							placeholder="記事・ページを検索..."
+							class="site-search"
+							inputClass="site-search-input"
+							resultsClass="site-search-results"
+							resultClass="site-search-result"
+							collections={["posts", "pages"]}
+						/>
+					</search>
+					<button type="button" class="header-theme" aria-label="テーマを切り替える" hidden>
 						<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.93 4.93l1.42 1.42M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.42-1.42M17.66 6.34l1.41-1.41"></path></svg>
 					</button>
 					{isLoggedIn && <a href="/_emdash/admin" class="nav-admin">Admin</a>}
@@ -123,7 +130,7 @@ const isLoggedIn = !!Astro.locals.user;
 			</div>
 		</header>
 
-		<main><slot /></main>
+		<main id="main-content" tabindex="-1"><slot /></main>
 
 		<footer class="site-footer">
 			<div class="footer-inner">
@@ -142,59 +149,110 @@ const isLoggedIn = !!Astro.locals.user;
 				<div class="footer-widgets"><WidgetArea name="footer" /></div>
 				<div class="footer-bottom">
 					<span>mopeneko</span>
-					<div class="theme-switcher" aria-label="表示テーマ">
-						<button type="button" class="theme-btn" data-theme="light" aria-label="ライトモード">Light</button>
-						<button type="button" class="theme-btn" data-theme="dark" aria-label="ダークモード">Dark</button>
-						<button type="button" class="theme-btn" data-theme="system" aria-label="システムテーマ">System</button>
-					</div>
+					<fieldset class="theme-switcher" hidden>
+						<legend class="visually-hidden">表示テーマ</legend>
+						{THEME_OPTIONS.map((option) => (
+							<label class="theme-btn">
+								<input type="radio" name="color-scheme" value={option.value} />
+								{option.label}
+							</label>
+						))}
+					</fieldset>
 				</div>
 			</div>
 		</footer>
 
 		<script>
-			const THEME_REGEX = /theme=([^;]+)/;
-			const themeBtns = document.querySelectorAll<HTMLButtonElement>(".theme-btn");
-			const root = document.documentElement;
-
-			function setCookie(name: string, value: string, maxAge = 31536000) {
-				const secure = location.protocol === "https:" ? "; Secure" : "";
-				document.cookie = value === ""
-					? `${name}=; path=/; max-age=0; SameSite=Lax${secure}`
-					: `${name}=${value}; path=/; max-age=${maxAge}; SameSite=Lax${secure}`;
-			}
-
-			function setTheme(theme: string) {
-				if (theme === "system") {
-					setCookie("theme", "");
-					root.classList.remove("light", "dark");
-					if (window.matchMedia("(prefers-color-scheme: dark)").matches) root.classList.add("dark");
-				} else {
-					setCookie("theme", theme);
-					root.classList.remove("light", "dark");
-					root.classList.add(theme);
-				}
-				themeBtns.forEach((btn) => {
-					const active = btn.dataset.theme === theme;
-					btn.classList.toggle("active", active);
-					btn.setAttribute("aria-pressed", String(active));
-				});
-			}
-
-			function getStoredTheme(): string {
-				return document.cookie.match(THEME_REGEX)?.[1] || "system";
-			}
-
-			setTheme(getStoredTheme());
+			const COLOR_SCHEME_QUERY = "(prefers-color-scheme: dark)";
+			const colorSchemeMeta = document.querySelector<HTMLMetaElement>('meta[name="color-scheme"]');
+			const themeInputs = document.querySelectorAll<HTMLInputElement>('input[name="color-scheme"]');
 			const headerTheme = document.querySelector<HTMLButtonElement>(".header-theme");
+
+			// The controls cannot work without JS, so they ship hidden and are revealed here.
+			document.querySelectorAll<HTMLElement>(".theme-switcher, .header-theme").forEach((el) => {
+				el.hidden = false;
+			});
+
+			function systemPrefersDark(): boolean {
+				return window.matchMedia(COLOR_SCHEME_QUERY).matches;
+			}
+
+			/** Stored override: "light", "dark", or null when following the system. */
+			function getStoredScheme(): "light" | "dark" | null {
+				try {
+					const value = localStorage.getItem("color-scheme");
+					return value === "light" || value === "dark" ? value : null;
+				} catch {
+					return null;
+				}
+			}
+
+			function renderedScheme(): "light" | "dark" {
+				return colorSchemeMeta?.content === "dark"
+					? "dark"
+					: colorSchemeMeta?.content === "light"
+						? "light"
+						: systemPrefersDark()
+							? "dark"
+							: "light";
+			}
+
+			/*
+			 * The `<meta>` is the single source of truth: CSS mirrors it onto
+			 * `color-scheme`, and `light-dark()` follows. Radios need no manual
+			 * state, since `:has(input:checked)` styles the selected label.
+			 */
+			function applyScheme(): void {
+				const stored = getStoredScheme();
+				if (colorSchemeMeta) colorSchemeMeta.content = stored ?? "light dark";
+				themeInputs.forEach((input) => {
+					input.checked = input.value === (stored ?? "system");
+				});
+				headerTheme?.setAttribute(
+					"aria-label",
+					renderedScheme() === "dark" ? "ライトモードに切り替える" : "ダークモードに切り替える",
+				);
+			}
+
+			function storeScheme(scheme: "light" | "dark" | null): void {
+				try {
+					if (scheme) localStorage.setItem("color-scheme", scheme);
+					else localStorage.removeItem("color-scheme");
+				} catch {
+					// Storage can be blocked; the rendered scheme still applies.
+				}
+				applyScheme();
+			}
+
+			themeInputs.forEach((input) => {
+				input.addEventListener("change", () => {
+					if (!input.checked) return;
+					const value = input.value;
+					storeScheme(value === "light" || value === "dark" ? value : null);
+				});
+			});
+
+			/*
+			 * Two-state header toggle: target the opposite of what is rendered
+			 * now. When that target is the system preference, drop the override
+			 * instead of pinning it, so later system changes still apply.
+			 */
 			headerTheme?.addEventListener("click", () => {
-				const themes = ["light", "dark", "system"];
-				const next = (themes.indexOf(getStoredTheme()) + 1) % themes.length;
-				setTheme(themes[next]);
+				const target = renderedScheme() === "dark" ? "light" : "dark";
+				const systemScheme = systemPrefersDark() ? "dark" : "light";
+				storeScheme(target === systemScheme ? null : target);
 			});
-			themeBtns.forEach((btn) => btn.addEventListener("click", () => setTheme(btn.dataset.theme || "system")));
-			window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", (event) => {
-				if (getStoredTheme() === "system") root.classList.toggle("dark", event.matches);
+
+			window.matchMedia(COLOR_SCHEME_QUERY).addEventListener("change", () => {
+				if (!getStoredScheme()) applyScheme();
 			});
+
+			// Keep other tabs in sync when the override changes elsewhere.
+			window.addEventListener("storage", (event) => {
+				if (event.key === "color-scheme" || event.key === null) applyScheme();
+			});
+
+			applyScheme();
 		</script>
 
 		<style is:global>
@@ -204,38 +262,17 @@ const isLoggedIn = !!Astro.locals.user;
 				*:where(:not([class*="emdash"]):not([class*="ec-"]))::before,
 				*:where(:not([class*="emdash"]):not([class*="ec-"]))::after { box-sizing: border-box; }
 				body, h1, h2, h3, h4, h5, h6, p, ul, ol, figure, blockquote, dl, dd { margin: 0; }
+				/* Author `display` values would otherwise defeat the `hidden` attribute. */
+				[hidden] { display: none !important; }
 				ul, ol { padding: 0; }
 				:root {
-					--font-size-xs: 0.8125rem;
-					--font-size-sm: 0.875rem;
 					--font-size-base: 1rem;
-					--font-size-lg: 1.125rem;
-					--font-size-xl: 1.25rem;
-					--font-size-2xl: 1.5rem;
-					--font-size-3xl: 2rem;
-					--font-size-4xl: 2.5rem;
-					--font-size-5xl: 3.5rem;
 					--leading-tight: 1.15;
-					--leading-snug: 1.3;
-					--leading-normal: 1.5;
-					--spacing-1: 0.25rem;
-					--spacing-2: 0.5rem;
-					--spacing-3: 0.75rem;
-					--spacing-4: 1rem;
-					--spacing-5: 1.25rem;
-					--spacing-6: 1.5rem;
-					--spacing-8: 2rem;
-					--spacing-10: 2.5rem;
-					--spacing-12: 3rem;
-					--spacing-16: 4rem;
-					--spacing-20: 5rem;
-					--spacing-24: 6rem;
+					--wide-width: 1140px;
+					--article-width: 1028px;
 					--tracking-tight: -0.03em;
 					--tracking-snug: -0.02em;
-					--tracking-wide: 0.06em;
-					--tracking-wider: 0.08em;
 					--shadow-dropdown: 0 8px 30px rgba(0, 0, 0, 0.12);
-					--shadow-btn-active: 0 1px 2px rgba(0, 0, 0, 0.05);
 					--emdash-search-bg: var(--color-bg);
 					--emdash-search-text: var(--color-text);
 					--emdash-search-muted: var(--color-muted);
@@ -244,8 +281,23 @@ const isLoggedIn = !!Astro.locals.user;
 					--emdash-search-highlight: var(--color-text);
 				}
 				html { scroll-behavior: smooth; }
+				.skip-link {
+					position: absolute;
+					top: 8px;
+					left: 8px;
+					z-index: 200;
+					padding: 8px 14px;
+					border-radius: var(--radius);
+					background: var(--color-surface);
+					color: var(--color-text);
+					transform: translateY(-200%);
+				}
+				.skip-link:focus-visible { transform: none; }
+				@media (prefers-reduced-motion: reduce) {
+					html { scroll-behavior: auto; }
+				}
 				body {
-					min-height: 100vh;
+					min-height: 100dvh;
 					background: var(--color-bg);
 					color: var(--color-text);
 					font-family: var(--font-sans);
@@ -258,53 +310,76 @@ const isLoggedIn = !!Astro.locals.user;
 				a:where(:not([class*="emdash"]):not([class*="ec-"])) { color: var(--color-accent); text-decoration: none; transition: color var(--transition-fast); }
 				a:where(:not([class*="emdash"]):not([class*="ec-"])):hover { color: var(--color-accent-hover); }
 				img { display: block; max-width: 100%; height: auto; }
-				h1, h2, h3, h4, h5, h6 { font-family: var(--font-sans); font-weight: 600; line-height: var(--leading-tight); letter-spacing: var(--tracking-snug); }
-				h1 { font-weight: 700; letter-spacing: var(--tracking-tight); }
+				h1, h2, h3, h4, h5, h6 {
+					font-family: var(--font-sans);
+					font-weight: 600;
+					line-height: var(--leading-tight);
+					letter-spacing: var(--tracking-snug);
+				}
+				h1 { font-weight: 700; letter-spacing: var(--tracking-tight); text-wrap: balance; }
+				:where(a:any-link, button, input, select, textarea, summary):focus-visible {
+					outline: 2px solid var(--color-accent);
+					outline-offset: 2px;
+				}
 				::selection { background: var(--color-accent); color: var(--color-on-accent); }
+				.visually-hidden {
+					clip-path: inset(50%);
+					height: 1px;
+					overflow: hidden;
+					position: absolute;
+					white-space: nowrap;
+					width: 1px;
+				}
 			}
 		</style>
 
 		<style>
 			.site-header { position: relative; z-index: 100; border-bottom: 1px solid var(--color-border); background: color-mix(in srgb, var(--color-bg) 92%, transparent); backdrop-filter: blur(8px); }
 			.site-header__inner { display: flex; align-items: center; justify-content: space-between; gap: 20px; max-width: var(--wide-width); height: var(--nav-height); margin: 0 auto; padding: 0 24px; }
-			.site-title { flex: none; color: var(--color-text); font-size: 19px; font-weight: 600; letter-spacing: -0.01em; }
+			.site-title { flex: none; color: var(--color-text); font-size: 1.1875rem; font-weight: 600; letter-spacing: -0.01em; }
 			.site-title:hover { color: var(--color-text); }
 			.nav-right, .nav-links { display: flex; align-items: center; gap: 6px; }
 			.nav-right { gap: 10px; min-width: 0; }
-			.nav-links a { padding: 6px 12px; border-radius: var(--radius); color: var(--color-muted); font-size: 13px; white-space: nowrap; }
+			.nav-links a { padding: 6px 12px; border-radius: var(--radius); color: var(--color-muted); font-size: 0.8125rem; white-space: nowrap; }
 			.nav-links a:hover { background: var(--color-bg-subtle); color: var(--color-text); }
-			.nav-admin { color: var(--color-muted); font-size: 12px; }
-			.site-search { position: relative; width: var(--search-input-width); --emdash-search-border-focus: var(--color-accent); }
-			:global(.site-search-input) { width: 100%; height: 36px; padding: 0 12px; border: 1px solid var(--color-border-strong); border-radius: var(--radius); background: transparent; color: var(--color-text); font-family: var(--font-sans); font-size: 12px; }
+			.nav-admin { color: var(--color-muted); font-size: 0.75rem; }
+			.site-search-wrap { flex: 0 1 var(--search-input-width); min-width: 0; }
+			.site-search { position: relative; display: block; width: 100%; --emdash-search-border-focus: var(--color-accent); }
+			:global(.site-search-input) { width: 100%; height: 36px; padding: 0 12px; border: 1px solid var(--color-border-strong); border-radius: var(--radius); background: transparent; color: var(--color-text); font-family: var(--font-sans); font-size: 0.75rem; }
 			:global(.site-search-input)::placeholder { color: var(--color-muted); }
-			:global(.site-search-input):focus { outline: none; border-color: var(--color-accent) !important; box-shadow: 0 0 0 3px var(--color-accent-ring); }
+			/* The widget's own stylesheet suppresses focus outlines; restore one. */
+			:global(.site-search-input):focus-visible { border-color: var(--color-accent) !important; outline: 2px solid var(--color-accent); outline-offset: 2px; }
 			:global(.site-search-results) { position: absolute; top: 100%; right: 0; left: 0; z-index: 1000; max-height: 400px; margin-top: 8px; overflow-y: auto; border: 1px solid var(--color-border); border-radius: var(--radius-lg); background: var(--color-bg); box-shadow: var(--shadow-dropdown); }
-			:global(.site-search-results .emdash-live-search-loading), :global(.site-search-results .emdash-live-search-no-results) { padding: 16px; color: var(--color-muted); font-size: 13px; text-align: center; }
+			:global(.site-search-results .emdash-live-search-loading), :global(.site-search-results .emdash-live-search-no-results) { padding: 16px; color: var(--color-muted); font-size: 0.8125rem; text-align: center; }
 			:global(.site-search-result) { display: block; padding: 12px 16px; border-bottom: 1px solid var(--color-border); color: var(--color-text); }
 			:global(.site-search-result):last-child { border-bottom: 0; }
-			:global(.site-search-result):hover, :global(.site-search-result):focus, :global(.site-search-result.focused) { background: var(--color-bg-subtle); color: var(--color-text); outline: none; }
-			:global(.site-search-result .emdash-live-search-result-title) { display: block; font-size: 14px; font-weight: 500; }
-			:global(.site-search-result .emdash-live-search-result-collection) { display: block; margin-top: 2px; color: var(--color-muted); font-size: 11px; text-transform: uppercase; }
-			:global(.site-search-result .emdash-live-search-result-snippet) { display: block; margin-top: 4px; color: var(--color-muted); font-size: 12px; line-height: 1.5; }
+			:global(.site-search-result):hover, :global(.site-search-result):focus-visible, :global(.site-search-result.focused) { background: var(--color-bg-subtle); color: var(--color-text); }
+			:global(.site-search-result):focus-visible { outline: 2px solid var(--color-accent); outline-offset: -2px; }
+			:global(.site-search-result .emdash-live-search-result-title) { display: block; font-size: 0.875rem; font-weight: 500; }
+			:global(.site-search-result .emdash-live-search-result-collection) { display: block; margin-top: 2px; color: var(--color-muted); font-size: 0.6875rem; text-transform: uppercase; }
+			:global(.site-search-result .emdash-live-search-result-snippet) { display: block; margin-top: 4px; color: var(--color-muted); font-size: 0.75rem; line-height: 1.5; }
 			.header-theme { display: inline-flex; flex: none; align-items: center; justify-content: center; width: 34px; height: 34px; border: 1px solid var(--color-border); border-radius: var(--radius); background: transparent; color: var(--color-muted); cursor: pointer; }
 			.header-theme:hover { background: var(--color-bg-subtle); color: var(--color-text); }
-			.theme-btn { display: inline-flex; align-items: center; justify-content: center; min-width: 32px; height: 30px; padding: 0 8px; border: 1px solid var(--color-border); border-radius: var(--radius); background: transparent; color: var(--color-muted); cursor: pointer; font: inherit; font-size: 11px; }
-			.theme-btn:hover, .theme-btn.active { background: var(--color-bg-subtle); color: var(--color-text); }
-			main { min-height: calc(100vh - var(--nav-height) - 220px); }
-			.site-footer { border-top: 1px solid var(--color-border); background: var(--color-bg-subtle); color: var(--color-muted); font-size: 12.5px; }
+			.theme-switcher { display: flex; gap: 4px; margin: 0; padding: 0; border: 0; }
+			.theme-btn { position: relative; display: inline-flex; align-items: center; justify-content: center; min-width: 32px; min-height: 30px; padding: 0 8px; border: 1px solid var(--color-border); border-radius: var(--radius); background: transparent; color: var(--color-muted); cursor: pointer; font: inherit; font-size: 0.6875rem; }
+			.theme-btn:hover, .theme-btn:has(input:checked) { background: var(--color-bg-subtle); color: var(--color-text); }
+			.theme-btn:has(input:focus-visible) { outline: 2px solid var(--color-accent); outline-offset: 2px; }
+			/* The label is the visual control; the radio stays focusable for keyboard use. */
+			.theme-btn input { position: absolute; inset: 0; width: 100%; height: 100%; margin: 0; opacity: 0; pointer-events: none; }
+			main { min-height: calc(100dvh - var(--nav-height) - 220px); }
+			.site-footer { border-top: 1px solid var(--color-border); background: var(--color-bg-subtle); color: var(--color-muted); font-size: 0.7812rem; }
 			.footer-inner { max-width: var(--wide-width); margin: 0 auto; padding: 40px 24px 24px; }
 			.footer-main { display: flex; flex-wrap: wrap; align-items: flex-start; justify-content: space-between; gap: 20px 36px; }
 			.footer-brand p { margin-top: 4px; }
 			.footer-brand p a { color: var(--color-text-secondary); text-decoration: underline; text-underline-offset: 2px; }
-			.footer-domain { color: var(--color-text); font-family: var(--font-mono); font-size: 14px; font-weight: 500; }
+			.footer-domain { color: var(--color-text); font-family: var(--font-mono); font-size: 0.875rem; font-weight: 500; }
 			.footer-links { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 8px 20px; }
 			.footer-links a { color: var(--color-muted); }
 			.footer-links a:hover { color: var(--color-text); }
 			.footer-widgets:not(:empty) { margin-top: 28px; padding-top: 20px; border-top: 1px solid var(--color-border); }
 			.footer-widgets :global(.widget-area) { display: flex; flex-wrap: wrap; gap: 24px; }
-			.footer-widgets :global(.widget__title) { margin-bottom: 8px; color: var(--color-text-secondary); font-size: 12px; }
-			.footer-bottom { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-top: 28px; padding-top: 20px; border-top: 1px solid var(--color-border); font-family: var(--font-mono); font-size: 11px; }
-			.theme-switcher { display: flex; gap: 4px; }
+			.footer-widgets :global(.widget__title) { margin-bottom: 8px; color: var(--color-text-secondary); font-size: 0.75rem; }
+			.footer-bottom { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-top: 28px; padding-top: 20px; border-top: 1px solid var(--color-border); font-family: var(--font-mono); font-size: 0.6875rem; }
 			@media (max-width: 860px) {
 				.site-header__inner { height: auto; min-height: var(--nav-height); flex-wrap: wrap; padding-top: 10px; padding-bottom: 10px; }
 				.nav-right { flex-wrap: wrap; justify-content: flex-end; }
@@ -313,7 +388,7 @@ const isLoggedIn = !!Astro.locals.user;
 			@media (max-width: 680px) {
 				.site-header__inner { align-items: flex-start; gap: 8px; padding: 10px 16px; }
 				.nav-right { flex: 1; }
-				.site-search { width: min(210px, 100%); flex: 1; }
+				.site-search-wrap { flex: 1 1 auto; width: min(var(--search-input-width), 100%); }
 				.nav-links { justify-content: flex-start; overflow-x: auto; }
 				.nav-links a { padding-right: 8px; padding-left: 0; }
 				.footer-inner { padding: 32px 20px 20px; }

@@ -41,10 +41,13 @@ const cards = await Promise.all(
 			<p>SEARCH</p>
 			<h1>記事を検索</h1>
 		</header>
-		<form method="get" action="/search" class="search-form">
-			<input type="search" name="q" value={query} placeholder="キーワードを入力..." class="search-input" autofocus />
-			<button type="submit" class="search-button">検索</button>
-		</form>
+		<search>
+			<form method="get" action="/search" class="search-form">
+				<label class="visually-hidden" for="search-query">検索キーワード</label>
+				<input id="search-query" type="search" name="q" value={query} placeholder="キーワードを入力..." class="search-input" autofocus />
+				<button type="submit" class="search-button">検索</button>
+			</form>
+		</search>
 		{query && <p class="search-summary">「{query}」の検索結果は {cards.length} 件です。</p>}
 		<div class="search-results">{cards.map((card) => <PostCard {...card} />)}</div>
 		{!query && <p class="search-hint">タイトル、抜粋、本文から検索できます。</p>}
@@ -54,13 +57,13 @@ const cards = await Promise.all(
 <style>
 	.search-page { max-width: 900px; margin: 0 auto; padding: 48px 24px 80px; }
 	.search-header { margin-bottom: 24px; }
-	.search-header p { margin-bottom: 8px; color: var(--color-accent); font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.08em; }
-	.search-header h1 { font-size: 30px; }
+	.search-header p { margin-bottom: 8px; color: var(--color-accent); font-family: var(--font-mono); font-size: 0.6875rem; letter-spacing: 0.08em; }
+	.search-header h1 { font-size: 1.875rem; }
 	.search-form { display: flex; gap: 8px; margin-bottom: 24px; }
-	.search-input { flex: 1; min-width: 0; padding: 10px 14px; border: 1px solid var(--color-border-strong); border-radius: var(--radius); background: var(--color-bg); color: var(--color-text); font: inherit; font-size: 14px; }
-	.search-input:focus { outline: none; border-color: var(--color-accent); box-shadow: 0 0 0 3px var(--color-accent-ring); }
-	.search-button { padding: 8px 20px; border: 0; border-radius: var(--radius); background: var(--color-accent); color: var(--color-on-accent); cursor: pointer; font: inherit; font-size: 14px; font-weight: 500; }
-	.search-summary, .search-hint { margin-bottom: 20px; color: var(--color-muted); font-size: 13px; }
+	.search-input { flex: 1; min-width: 0; padding: 10px 14px; border: 1px solid var(--color-border-strong); border-radius: var(--radius); background: var(--color-bg); color: var(--color-text); font: inherit; font-size: 0.875rem; }
+	.search-input:focus-visible { border-color: var(--color-accent); }
+	.search-button { padding: 8px 20px; border: 0; border-radius: var(--radius); background: var(--color-accent); color: var(--color-on-accent); cursor: pointer; font: inherit; font-size: 0.875rem; font-weight: 500; }
+	.search-summary, .search-hint { margin-bottom: 20px; color: var(--color-muted); font-size: 0.8125rem; }
 	.search-results { border-top: 1px solid var(--color-border); }
 	@media (max-width: 680px) { .search-page { padding: 32px 20px 56px; } }
 </style>

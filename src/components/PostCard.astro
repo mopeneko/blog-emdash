@@ -64,13 +64,13 @@ const formattedDate = formatPostDate(publishedAt);
 		margin-bottom: 6px;
 		color: var(--color-muted);
 		font-family: var(--font-mono);
-		font-size: 11px;
+		font-size: 0.6875rem;
 		line-height: 1.5;
 	}
 
 	.post-card__title {
 		margin-bottom: 6px;
-		font-size: 17px;
+		font-size: 1.0625rem;
 		font-weight: 600;
 		line-height: 1.45;
 		letter-spacing: 0;
@@ -94,7 +94,7 @@ const formattedDate = formatPostDate(publishedAt);
 		overflow: hidden;
 		margin-bottom: 10px;
 		color: var(--color-text-secondary);
-		font-size: 13.5px;
+		font-size: 0.8438rem;
 		line-height: 1.75;
 		overflow-wrap: anywhere;
 	}
@@ -113,11 +113,17 @@ const formattedDate = formatPostDate(publishedAt);
 		width: 100%;
 		height: 100%;
 		object-fit: cover;
-		transition: transform var(--transition-base);
 	}
 
-	.post-card__thumb:hover :global(img) {
-		transform: scale(1.025);
+	/* Spatial motion only where the visitor has not asked for less of it. */
+	@media (prefers-reduced-motion: no-preference) {
+		.post-card__thumb :global(img) {
+			transition: transform var(--transition-base);
+		}
+
+		.post-card__thumb:hover :global(img) {
+			transform: scale(1.025);
+		}
 	}
 
 	@media (max-width: 680px) {

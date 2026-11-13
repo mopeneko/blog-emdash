@@ -106,6 +106,9 @@ const { videoId, title } = node;
 	// 依存なし。既に登録済みならスキップ。
 	if (!customElements.get("lite-youtube")) {
 		class LiteYTEmbed extends HTMLElement {
+			videoId = "";
+			static preconnected = false;
+
 			connectedCallback() {
 				this.videoId = this.getAttribute("videoid") || "";
 				// Poster
@@ -132,9 +135,9 @@ const { videoId, title } = node;
 				LiteYTEmbed.preconnected = true;
 			}
 
-			addIframe(e) {
+			addIframe(event: Event) {
 				if (this.classList.contains("lyt-activated")) return;
-				e.preventDefault();
+				event.preventDefault();
 				const iframeEl = document.createElement("iframe");
 				iframeEl.width = "560";
 				iframeEl.height = "315";

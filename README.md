@@ -15,7 +15,7 @@ A clean, minimal blog built with [EmDash](https://github.com/emdash-cms/emdash) 
 - Full-text search
 - RSS feed
 - SEO metadata and JSON-LD
-- Dark/light mode
+- Dark/light mode: follows the system preference, with a light/dark/system override remembered in `localStorage`
 - Forms plugin and webhook notifier
 
 ## Pages

@@ -1,89 +1,157 @@
+/*
+ * Theme tokens.
+ *
+ * `color-scheme: light dark` lets the browser theme native UI (scrollbars,
+ * form controls, canvas) from the system preference. `light-dark()` then
+ * resolves every token from that computed scheme, so one palette definition
+ * covers both modes and `<meta name="color-scheme">` can pin either one.
+ */
+
 :root {
-	--color-bg: #fafaf9;
-	--color-bg-subtle: #f5f5f4;
-	--color-text: #292524;
-	--color-text-secondary: #57534e;
-	--color-muted: #78716c;
-	--color-border: #e7e5e4;
-	--color-border-subtle: #e7e5e4;
-	--color-border-strong: #d6d3d1;
-	--color-surface: #ffffff;
-	--color-accent: #1a7a6d;
-	--color-accent-hover: #146156;
-	--color-on-accent: #ffffff;
-	--color-accent-soft: rgba(26, 122, 109, 0.1);
-	--color-accent-ring: color-mix(in srgb, var(--color-accent) 25%, transparent);
-	--tag-bg: #f5f5f4;
-	--tag-fg: #44403c;
-	--tag-border: #e7e5e4;
-	--code-bg: #1c1917;
+	color-scheme: light dark;
+
+	/* Raw values per mode: the single source of truth for both paths below. */
+	--bg-light: #fafaf9;
+	--bg-dark: #0c0a09;
+	--bg-subtle-light: #f5f5f4;
+	--bg-subtle-dark: #1c1917;
+	--text-light: #292524;
+	--text-dark: #f5f5f4;
+	--text-secondary-light: #57534e;
+	--text-secondary-dark: #d6d3d1;
+	--muted-light: #78716c;
+	--muted-dark: #a8a29e;
+	--border-light: #e7e5e4;
+	--border-dark: #292524;
+	--border-strong-light: #d6d3d1;
+	--border-strong-dark: #44403c;
+	--surface-light: #ffffff;
+	--surface-dark: #141210;
+	--accent-light: #1a7a6d;
+	--accent-dark: #2dd4bf;
+	--accent-hover-light: #146156;
+	--accent-hover-dark: #5eead4;
+	--on-accent-light: #ffffff;
+	--on-accent-dark: #141210;
+	--accent-soft-light: rgba(26, 122, 109, 0.1);
+	--accent-soft-dark: rgba(45, 212, 191, 0.12);
+	--tag-fg-light: #44403c;
+	--tag-fg-dark: #d6d3d1;
+	--code-bg-light: #1c1917;
+	--code-bg-dark: #141210;
+	--code-header-light: #292524;
+	--code-header-dark: #1c1917;
+	--inline-code-bg-light: #f0efed;
+	--inline-code-bg-dark: #1c1917;
+	--inline-code-fg-light: #0f5c52;
+	--inline-code-fg-dark: #5eead4;
+
+	/* Resolved tokens: light first, then the two overrides below. */
+	--color-bg: var(--bg-light);
+	--color-bg-subtle: var(--bg-subtle-light);
+	--color-text: var(--text-light);
+	--color-text-secondary: var(--text-secondary-light);
+	--color-muted: var(--muted-light);
+	--color-border: var(--border-light);
+	--color-border-subtle: var(--border-light);
+	--color-border-strong: var(--border-strong-light);
+	--color-surface: var(--surface-light);
+	--color-accent: var(--accent-light);
+	--color-accent-hover: var(--accent-hover-light);
+	--color-on-accent: var(--on-accent-light);
+	--color-accent-soft: var(--accent-soft-light);
+	--tag-bg: var(--bg-subtle-light);
+	--tag-fg: var(--tag-fg-light);
+	--tag-border: var(--border-light);
+	--code-bg: var(--code-bg-light);
 	--code-fg: #f5f5f4;
-	--code-header: #292524;
+	--code-header: var(--code-header-light);
 	--code-border: #292524;
-	--inline-code-bg: #f0efed;
-	--inline-code-fg: #0f5c52;
+	--inline-code-bg: var(--inline-code-bg-light);
+	--inline-code-fg: var(--inline-code-fg-light);
+
 	--radius: 4px;
 	--radius-lg: 8px;
 	--leading-relaxed: 1.95;
-	--content-width: 740px;
-	--wide-width: 1140px;
-	--article-width: 1028px;
-	--gutter-width: 240px;
 	--nav-height: 62px;
 	--search-input-width: 210px;
-	--tag-padding-y: 2px;
 	--transition-fast: 120ms ease;
 	--transition-base: 180ms ease;
-}
 
-@media (prefers-color-scheme: dark) {
-	:root:not(.light) {
-		--color-bg: #0c0a09;
-		--color-bg-subtle: #1c1917;
-		--color-text: #f5f5f4;
-		--color-text-secondary: #d6d3d1;
-		--color-muted: #a8a29e;
-		--color-border: #292524;
-		--color-border-subtle: #292524;
-		--color-border-strong: #44403c;
-		--color-surface: #141210;
-		--color-accent: #2dd4bf;
-		--color-accent-hover: #5eead4;
-		--color-on-accent: #141210;
-		--color-accent-soft: rgba(45, 212, 191, 0.12);
-		--tag-bg: #1c1917;
-		--tag-fg: #d6d3d1;
-		--tag-border: #292524;
-		--code-bg: #141210;
-		--code-fg: #f5f5f4;
-		--code-header: #1c1917;
-		--code-border: #292524;
-		--inline-code-bg: #1c1917;
-		--inline-code-fg: #5eead4;
+	/* Fallback for browsers without `light-dark()`: follow the media query. */
+	@media (prefers-color-scheme: dark) {
+		--color-bg: var(--bg-dark);
+		--color-bg-subtle: var(--bg-subtle-dark);
+		--color-text: var(--text-dark);
+		--color-text-secondary: var(--text-secondary-dark);
+		--color-muted: var(--muted-dark);
+		--color-border: var(--border-dark);
+		--color-border-subtle: var(--border-dark);
+		--color-border-strong: var(--border-strong-dark);
+		--color-surface: var(--surface-dark);
+		--color-accent: var(--accent-dark);
+		--color-accent-hover: var(--accent-hover-dark);
+		--color-on-accent: var(--on-accent-dark);
+		--color-accent-soft: var(--accent-soft-dark);
+		--tag-bg: var(--bg-subtle-dark);
+		--tag-fg: var(--tag-fg-dark);
+		--tag-border: var(--border-dark);
+		--code-bg: var(--code-bg-dark);
+		--code-header: var(--code-header-dark);
+		--inline-code-bg: var(--inline-code-bg-dark);
+		--inline-code-fg: var(--inline-code-fg-dark);
+	}
+
+	/*
+	 * Preferred path: one expression per token. `:has(input:checked)`-style
+	 * overrides are not needed, since `light-dark()` follows whichever scheme
+	 * the element resolves.
+	 */
+	@supports (color: light-dark(white, black)) {
+		--color-bg: light-dark(var(--bg-light), var(--bg-dark));
+		--color-bg-subtle: light-dark(var(--bg-subtle-light), var(--bg-subtle-dark));
+		--color-text: light-dark(var(--text-light), var(--text-dark));
+		--color-text-secondary: light-dark(var(--text-secondary-light), var(--text-secondary-dark));
+		--color-muted: light-dark(var(--muted-light), var(--muted-dark));
+		--color-border: light-dark(var(--border-light), var(--border-dark));
+		--color-border-subtle: light-dark(var(--border-light), var(--border-dark));
+		--color-border-strong: light-dark(var(--border-strong-light), var(--border-strong-dark));
+		--color-surface: light-dark(var(--surface-light), var(--surface-dark));
+		--color-accent: light-dark(var(--accent-light), var(--accent-dark));
+		--color-accent-hover: light-dark(var(--accent-hover-light), var(--accent-hover-dark));
+		--color-on-accent: light-dark(var(--on-accent-light), var(--on-accent-dark));
+		--color-accent-soft: light-dark(var(--accent-soft-light), var(--accent-soft-dark));
+		--tag-bg: light-dark(var(--bg-subtle-light), var(--bg-subtle-dark));
+		--tag-fg: light-dark(var(--tag-fg-light), var(--tag-fg-dark));
+		--tag-border: light-dark(var(--border-light), var(--border-dark));
+		--code-bg: light-dark(var(--code-bg-light), var(--code-bg-dark));
+		--code-header: light-dark(var(--code-header-light), var(--code-header-dark));
+		--inline-code-bg: light-dark(var(--inline-code-bg-light), var(--inline-code-bg-dark));
+		--inline-code-fg: light-dark(var(--inline-code-fg-light), var(--inline-code-fg-dark));
+	}
+
+	/*
+	 * `<meta name="color-scheme">` is only a presentational hint and the
+	 * declaration above outranks it, so mirror the user's override back onto
+	 * the property. `:has()` ships in every engine that has `light-dark()`;
+	 * where it is missing the page keeps following the system preference.
+	 */
+	&:has(> head > meta[name="color-scheme"][content="dark"]) {
+		color-scheme: dark;
+	}
+
+	&:has(> head > meta[name="color-scheme"][content="light"]) {
+		color-scheme: light;
 	}
 }
 
-:root.dark {
-	--color-bg: #0c0a09;
-	--color-bg-subtle: #1c1917;
-	--color-text: #f5f5f4;
-	--color-text-secondary: #d6d3d1;
-	--color-muted: #a8a29e;
-	--color-border: #292524;
-	--color-border-subtle: #292524;
-	--color-border-strong: #44403c;
-	--color-surface: #141210;
-	--color-accent: #2dd4bf;
-	--color-accent-hover: #5eead4;
-	--color-on-accent: #141210;
-	--color-accent-soft: rgba(45, 212, 191, 0.12);
-	--tag-bg: #1c1917;
-	--tag-fg: #d6d3d1;
-	--tag-border: #292524;
-	--code-bg: #141210;
-	--code-fg: #f5f5f4;
-	--code-header: #1c1917;
-	--code-border: #292524;
-	--inline-code-bg: #1c1917;
-	--inline-code-fg: #5eead4;
+/*
+ * Without `light-dark()` a manual override cannot be expressed, so the theme
+ * controls are hidden rather than left as silent no-ops.
+ */
+@supports not (color: light-dark(white, black)) {
+	.header-theme,
+	.theme-switcher {
+		display: none;
+	}
 }

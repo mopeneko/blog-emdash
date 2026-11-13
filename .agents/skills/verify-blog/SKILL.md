@@ -88,7 +88,7 @@ Other real handles in the current theme:
 |Article|`.article-title`, `.writing-telemetry`, `.article-content`, `#toc-content .toc-link` (populated client-side; the element is an id, not a class), `.more-posts` with heading `続けて読む`|
 |Tag archive|`.archive-label` `TAG`, `.archive-title` `#Docker`, `.archive-count` `1 記事`, cards in `.article-stream`|
 |Page|`.page-title`, `.page-content`; entered from `.footer-links a[href="/pages/privacy-policy"]`|
-|Theme|`.theme-btn[data-theme="light"|"dark"|"system"]`, accessible names `ライトモード`/`ダークモード`/`システムテーマ`; header cycle button `.header-theme` (`テーマを切り替える`)|
+|Theme|`.theme-switcher` radio group: `input[name="color-scheme"][value="light"|"dark"|"system"]`, labels `ライト`/`ダーク`/`システム`; header button `.header-theme` whose `aria-label` flips between `ライトモードに切り替える` and `ダークモードに切り替える`. State lives in `meta[name="color-scheme"]` and `localStorage["color-scheme"]`|
 |Product block|`.product-card`, `.product-card__label`, `.product-card__maker`, `.product-card__title`, `.product-card__link`|
 |Feed|`.footer-links a[href="/rss.xml"]`|
 
