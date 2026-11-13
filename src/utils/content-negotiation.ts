@@ -1,6 +1,5 @@
-/** The two representations this site produces. Order is the server preference used to break ties. */
-const REPRESENTATIONS = ["text/html", "text/markdown"] as const;
-type Representation = (typeof REPRESENTATIONS)[number];
+const PREFERRED_REPRESENTATIONS = ["text/html", "text/markdown"] as const;
+type Representation = (typeof PREFERRED_REPRESENTATIONS)[number];
 
 export type Negotiation =
 	| { readonly kind: "representation"; readonly mediaType: Representation }
@@ -61,7 +60,7 @@ export function negotiate(acceptHeader: string | null): Negotiation {
 	const ranges = parseAccept(acceptHeader);
 	let winner: Representation | null = null;
 	let winnerQuality = 0;
-	for (const representation of REPRESENTATIONS) {
+	for (const representation of PREFERRED_REPRESENTATIONS) {
 		const quality = effectiveQuality(representation, ranges);
 		if (quality > winnerQuality) {
 			winner = representation;
