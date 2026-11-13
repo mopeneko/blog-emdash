@@ -1,12 +1,12 @@
 /** The two representations this site produces. Order is the server preference used to break ties. */
-export const REPRESENTATIONS = ["text/html", "text/markdown"] as const;
-export type Representation = (typeof REPRESENTATIONS)[number];
+const REPRESENTATIONS = ["text/html", "text/markdown"] as const;
+type Representation = (typeof REPRESENTATIONS)[number];
 
 export type Negotiation =
 	| { readonly kind: "representation"; readonly mediaType: Representation }
 	| { readonly kind: "not-acceptable" };
 
-export const MARKDOWN_CONTENT_TYPE = "text/markdown; charset=utf-8";
+const MARKDOWN_CONTENT_TYPE = "text/markdown; charset=utf-8";
 
 type MediaRange = {
 	type: string;
